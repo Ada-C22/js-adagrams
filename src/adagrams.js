@@ -8,13 +8,8 @@ import {
 } from './utilities.js';
 
 export const drawLetters = () => {
-  const drawnLetters = [];
   const poolCopy = [...createLetterPool()];
-
-  for (let i = 0; i < NUM_LETTERS; i++) {
-    drawnLetters.push(drawRandomLetter(poolCopy));
-  }
-  return drawnLetters;
+  return Array.from({ length: NUM_LETTERS }, () => drawRandomLetter(poolCopy));
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
