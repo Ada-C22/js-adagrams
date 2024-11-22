@@ -35,7 +35,7 @@ for (const property in LETTER_POOL) {
 }
 
 export const drawLetters = () => {
-  let LETTER_COPY = LETTER_LIST;
+  const LETTER_COPY = [...LETTER_LIST];
   let cards = [];
 
   for (let i = 0; i < 10; i++) {
