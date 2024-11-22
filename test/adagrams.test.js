@@ -148,6 +148,14 @@ describe("Adagrams", () => {
       expect(highestScoreFrom(words)).toEqual(correct);
     });
 
+    it("handles empty string", () => {
+      const words = [];
+      const correct = { word: null, score: 0 };
+
+      expect(highestScoreFrom(words)).toEqual(correct);
+      expect(highestScoreFrom(words.reverse())).toEqual(correct);
+    });
+
     describe("in case of tied score", () => {
       const expectTie = (words) => {
         const scores = words.map((word) => scoreWord(word));
