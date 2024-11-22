@@ -62,7 +62,7 @@ describe("Adagrams", () => {
             letter_freq[letter] = 1;
           }
         }
-
+        
         for (let letter of drawn) {
           expect(letter_freq[letter]).toBeLessThanOrEqual(LETTER_POOL[letter]);
         }
