@@ -143,5 +143,3 @@ export const highestScoreFrom = (words) => {
 
   return pickWinner(maxScores)
   };
-
-
