@@ -116,7 +116,7 @@ export const addBonusPoints = (word) => {
     bonusPoints += bonusForLongWord
   }
   return bonusPoints
-}
+};
 
 export const scoreWord = (word) => {
   let wordScore = 0;
@@ -132,5 +132,43 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let maxScore = 0;
+  let highScoreWords = [];
+
+  let wordScoreMap = getWordScoreMap(words);
+
+  for (const [word, score] of Object.entries(wordScoreMap)) {
+    if (score > maxScore) {
+      maxScore = score;
+      highScoreWords = [word];
+    } else if (score === maxScore) {
+      highScoreWords.push(word);
+    }
+  }
+
+  if (highScoreWords.length === 1) {
+    return { word: highScoreWords[0], score: maxScore };
+  } else {
+    return tieBreaker(highScoreWords, maxScore);
+  }
 };
+
+export const getWordScoreMap = (words) => {
+  const wordScoreMap = {};
+
+  for (const word of words) {
+    wordScoreMap[word] = scoreWord(word);
+  }
+  return wordScoreMap;
+};
+
+// def tiebreaker(high_score_words, max_score):
+//     shortest_word = high_score_words[0]
+
+//     for word in high_score_words:
+//         if len(word) == 10:    
+//             return word, max_score
+//     for word in high_score_words:
+//         if len(word) < len(shortest_word):
+//             shortest_word = word
+//     return shortest_word, max_score
