@@ -3,7 +3,7 @@ import {
   createLetterPool,
   drawRandomLetter,
   getLetterScore,
-  tieBreaker,
+  updateWinner,
   isMaxLength
 } from './utilities.js';
 
@@ -47,22 +47,17 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   let winningWord = null;
-  let highestScore = 0;
+  let winningScore = 0;
 
-  for (const word of words) {
-    const wordScore = scoreWord(word);
+  for (const currentWord of words) {
+    const currentData = { currentWord, currentScore: scoreWord(currentWord) };
+    const winningData = { winningWord, winningScore };
 
-    if (!winningWord || wordScore > highestScore) {
-      winningWord = word;
-      highestScore = wordScore;
-    } else if (wordScore === highestScore) {
-      winningWord = tieBreaker(word, winningWord);
-    }
+    ({ winningWord, winningScore } = updateWinner(currentData, winningData));
 
     if (isMaxLength(winningWord)) {
       break;
     }
   }
-
-  return {word: winningWord, score: highestScore};
+  return { word: winningWord, score: winningScore };
 };
