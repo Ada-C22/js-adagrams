@@ -90,7 +90,7 @@ export const scoreWord = (word) => {
   if (!word) {
     return 0;
   };
-  
+
   let score = 0;
   let upperWord = word.toUpperCase()
   for (const char of upperWord) {
@@ -104,5 +104,28 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let highestScore = 0;
+  let highestScoreWord = '';
+  let lenOfHighestScoreWord = 0;
+
+  for (const word of words) {
+    const score = scoreWord(word);
+
+    if (score < highestScore) {
+      continue;
+    } else if (score === highestScore && lenOfHighestScoreWord === 10) {
+      continue;
+    } else if (score === highestScore && word.length !== 10 && word.length >= lenOfHighestScoreWord ) {
+      continue;
+    }
+
+    highestScore = score;
+    highestScoreWord = word;
+    lenOfHighestScoreWord = word.length;
+  };
+
+  return {
+    word: highestScoreWord, 
+    score: highestScore,
+  };
 };
