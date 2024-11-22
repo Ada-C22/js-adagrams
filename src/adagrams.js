@@ -111,7 +111,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const addBonusPoints = (word) => {
   let bonusPoints = 0
-
+  // check if the word length is the length for bonus points and awarding points if it is
   if (word.length >= bonusWordLength) {
     bonusPoints += bonusForLongWord
   }
@@ -122,10 +122,11 @@ export const scoreWord = (word) => {
   let wordScore = 0;
 
   word = word.toUpperCase();
-
+  // loop through each letter in the word and add the points assigned to each letter
   for (const letter of word) {
     wordScore += letterScores[letter]
   } 
+  // add the bonus points as necessary with helper function
   wordScore += addBonusPoints(word)
 
   return wordScore
@@ -134,11 +135,14 @@ export const scoreWord = (word) => {
 export const tieBreaker = (highScoreWords, maxScore) => {
   let shortestWord = highScoreWords[0];
 
+  // loop through the highScoreWords if one of them has length of 10 than that is the winner
   for (const word of highScoreWords) {
     if (word.length === 10) {
       return { word: word, score: maxScore };
     }
   }
+
+  // otherwise loop through and the shortest word is the winner
   for (const word of highScoreWords) {
     if (word.length < shortestWord.length) {
       shortestWord = word
@@ -151,19 +155,24 @@ export const highestScoreFrom = (words) => {
   let maxScore = 0;
   let highScoreWords = [];
 
+  // get a map of the words and their scores
   let wordScoreMap = getWordScoreMap(words);
 
+  // for each word in wordScoreMap check if the score is higher than the set maxScore 
+  // if it is it replaces the maxScore and gets added to highScoreWords
   for (const [word, score] of Object.entries(wordScoreMap)) {
     if (score > maxScore) {
       maxScore = score;
       highScoreWords = [word];
+    // if its equal then it gets added to highScoreWords list as well
     } else if (score === maxScore) {
       highScoreWords.push(word);
     }
   }
-
+  // if the highScoreWords is only 1 word than return that along with maxScore
   if (highScoreWords.length === 1) {
     return { word: highScoreWords[0], score: maxScore };
+  // otherwise go into tieBreaker
   } else {
     return tieBreaker(highScoreWords, maxScore);
   }
@@ -171,7 +180,7 @@ export const highestScoreFrom = (words) => {
 
 export const getWordScoreMap = (words) => {
   const wordScoreMap = {};
-
+  // loops through words and add each word and its score to a map
   for (const word of words) {
     wordScoreMap[word] = scoreWord(word);
   }
