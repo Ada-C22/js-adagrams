@@ -1,15 +1,5 @@
 const handSize = 10;
-const bonusLengthMin = 7;
-const bonusPoints = 10;
-const scoresChart = {
-  'A': 1, 'E': 1, 'I': 1, 'O': 1, 'U': 1, 'L': 1, 'N': 1, 'R': 1, 'S': 1, 'T': 1,
-  'D': 2, 'G': 2,
-  'B': 3, 'C': 3, 'M': 3, 'P': 3,
-  'F': 4, 'H': 4, 'V': 4, 'W': 4, 'Y': 4,
-  'K': 5,
-  'J': 8, 'X': 8,
-  'Q': 10, 'Z': 10
-};
+
 
 export const drawLetters = () => {  // Check!
   const letterCounts = {
@@ -64,7 +54,7 @@ export const drawLetters = () => {  // Check!
   return hand;
 };
 
-export const usesAvailableLetters = (input, lettersInHand) => {
+export const usesAvailableLetters = (input, lettersInHand) => {  // Check!
   let lettersInHandCopy = [...lettersInHand];
   for (const letter of input) {
     const letterIndex = lettersInHandCopy.indexOf(letter);
@@ -77,21 +67,31 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
-// console.log(usesAvailableLetters);
 
-
-export const scoreWord = (word) => {
-  // Implement this method for wave 3
-  function countScores(word, scoresChart) {
-    let scores = 0;
-    for (const letter of word) {
-      scores = scores + scoresChart[letter];
-    };
-    if (word.length >= bonusLengthMin) {
-      scores = scores + bonusPoints;
-    };
-    return scores;
+export const scoreWord = (word) => {  // Checked!
+  const bonusLengthMin = 7;
+  const bonusPoints = 8;
+  const scoresChart = {
+    'A': 1, 'E': 1, 'I': 1, 'O': 1, 'U': 1, 'L': 1, 'N': 1, 'R': 1, 'S': 1, 'T': 1,
+    'D': 2, 'G': 2,
+    'B': 3, 'C': 3, 'M': 3, 'P': 3,
+    'F': 4, 'H': 4, 'V': 4, 'W': 4, 'Y': 4,
+    'K': 5,
+    'J': 8, 'X': 8,
+    'Q': 10, 'Z': 10
   };
+
+  let scores = 0;
+
+  if (word.length >= bonusLengthMin) {
+    scores = scores + bonusPoints;
+  };
+
+  for (const letter of word.toUpperCase()) {
+    scores = scores + scoresChart[letter];
+  };
+
+  return scores;
 };
 
 export const highestScoreFrom = (words) => {
