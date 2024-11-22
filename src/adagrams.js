@@ -131,6 +131,22 @@ export const scoreWord = (word) => {
   return wordScore
 };
 
+export const tieBreaker = (highScoreWords, maxScore) => {
+  let shortestWord = highScoreWords[0];
+
+  for (const word of highScoreWords) {
+    if (word.length === 10) {
+      return { word: word, score: maxScore };
+    }
+  }
+  for (const word of highScoreWords) {
+    if (word.length < shortestWord.length) {
+      shortestWord = word
+    }
+  }
+  return { word: shortestWord, score: maxScore }
+};
+
 export const highestScoreFrom = (words) => {
   let maxScore = 0;
   let highScoreWords = [];
@@ -161,14 +177,3 @@ export const getWordScoreMap = (words) => {
   }
   return wordScoreMap;
 };
-
-// def tiebreaker(high_score_words, max_score):
-//     shortest_word = high_score_words[0]
-
-//     for word in high_score_words:
-//         if len(word) == 10:    
-//             return word, max_score
-//     for word in high_score_words:
-//         if len(word) < len(shortest_word):
-//             shortest_word = word
-//     return shortest_word, max_score
