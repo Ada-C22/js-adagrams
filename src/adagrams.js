@@ -1,44 +1,42 @@
 const handSize = 10;
 
+const letterCounts = {
+  A : 9,
+  N : 6,
+  B : 2,
+  O : 8,
+  C : 2,
+  P : 2,
+  D : 4,
+  Q : 1,
+  E : 12,
+  R : 6,
+  F : 2,
+  S : 4,
+  G : 3,
+  T : 6,
+  H : 2,
+  U : 4,
+  I : 9,
+  V : 2,
+  J : 1,
+  W : 2,
+  K : 1,
+  X : 1,
+  L : 4,
+  Y : 2,
+  M : 2,
+  Z : 1
+};
 
-export const drawLetters = () => {  // Check!
-  const letterCounts = {
-    A : 9,
-    N : 6,
-    B : 2,
-    O : 8,
-    C : 2,
-    P : 2,
-    D : 4,
-    Q : 1,
-    E : 12,
-    R : 6,
-    F : 2,
-    S : 4,
-    G : 3,
-    T : 6,
-    H : 2,
-    U : 4,
-    I : 9,
-    V : 2,
-    J : 1,
-    W : 2,
-    K : 1,
-    X : 1,
-    L : 4,
-    Y : 2,
-    M : 2,
-    Z : 1
+const createLetterPool = () => {
+  let letterPool = [];
+  for (const [letter, count] of Object.entries(letterCounts)) {
+    const portion = letter.repeat(count).split('');
+    letterPool.push(...portion);
   };
-
-  const createLetterPool = () => {
-    let letterPool = [];
-    for (const [letter, count] of Object.entries(letterCounts)) {
-      const portion = letter.repeat(count).split('');
-      letterPool.push(...portion);
-    };
-    return letterPool;
-  };
+  return letterPool;
+};
 
   const createHand = (letterPool) => {
     let hand = [];
@@ -48,6 +46,7 @@ export const drawLetters = () => {  // Check!
     }
     return hand;
   };
+export const drawLetters = () => {  // Check!
 
   let letterPool = createLetterPool();
   const hand = createHand(letterPool);
@@ -95,5 +94,56 @@ export const scoreWord = (word) => {  // Checked!
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-};
+
+  const findAllScores = (words) => {
+    let scores = [];
+    for (const word of words) {
+      let wordData = {};
+      wordData.word = word;
+      wordData.score = scoreWord(word);
+      scores.push(wordData);
+    }
+    return scores;
+  };
+  
+  const findMaxScores = (scores) => {
+    let maxScores = [scores[0]];
+    for (let i = 1; i < scores.length; i++ ) {
+      if (maxScores[0].score < scores[i].score) {
+        maxScores = [scores[i]]
+      } else if (maxScores[0].score === scores[i].score) {
+        maxScores.push(scores[i])
+      };
+    };
+    return maxScores;
+  };
+  
+  const pickWinner = (maxScores) => {
+
+    let maxScoreWord = maxScores[0];
+    let maxScoreWordLength = maxScoreWord.word.length;
+    
+    for (const wordInMaxScore of maxScores) {      
+      if (wordInMaxScore.word.length === 10) {
+        return wordInMaxScore;
+      } else if (wordInMaxScore.word.length < maxScoreWordLength) {
+        maxScoreWord = wordInMaxScore;
+        maxScoreWordLength = maxScoreWord.length;
+      };
+    };
+    return maxScoreWord;
+  };
+
+  const scores = findAllScores(words);
+  
+  const maxScores = findMaxScores(scores);
+
+  // Return the word if there is only one word with max score
+  if (maxScores.length === 1) return maxScores[0];
+
+  return pickWinner(maxScores)
+  };
+
+console.log(highestScoreFrom(["WWW", "MMMM"]));
+
+
