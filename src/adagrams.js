@@ -71,12 +71,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   }
   // compare if input total match lettersInHand
+  let result = false;
   for (let [letter, count] of Object.entries(newInput)) {    
-    if (!(letter in letterCount) || (letterCount[letter] < count)) {
-      return false;
-    } 
+    if ((letter in letterCount) && (letterCount[letter] >= count)) {
+      result = true;
+    } else {
+      result = false;
+      break;
+    }
   }
-  return true;
+  return result;
 };
 
 export const scoreWord = (word) => {
