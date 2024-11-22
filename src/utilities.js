@@ -1,3 +1,5 @@
+export const NUM_LETTERS = 10;
+
 export const createLetterPool = () => {
   const LETTER_POOL = [
     ['A', 9], ['B', 2], ['C', 2], ['D', 4], ['E', 12], ['F', 2],
@@ -46,8 +48,8 @@ export const compareScores = (currentWordData, currentWinnerData) => {
   return currentWinnerData;
 }
 
-export const tieBreaker = (word, winningWord, NUM_LETTERS) => {
-  if (isMaxLength(winningWord, NUM_LETTERS)) {
+export const tieBreaker = (word, winningWord) => {
+  if (isMaxLength(winningWord)) {
     return winningWord;
   }
   if (isMaxLength(word, NUM_LETTERS) || word.length < winningWord.length) {
@@ -57,4 +59,4 @@ export const tieBreaker = (word, winningWord, NUM_LETTERS) => {
   return winningWord;
 };
 
-export const isMaxLength = (word, NUM_LETTERS) => word.length === NUM_LETTERS;
+export const isMaxLength = (word) => word.length === NUM_LETTERS;

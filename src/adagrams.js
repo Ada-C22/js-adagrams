@@ -1,12 +1,11 @@
 import {
+  NUM_LETTERS,
   createLetterPool,
   drawRandomLetter,
   getLetterScore,
   tieBreaker,
   isMaxLength
 } from './utilities.js';
-
-const NUM_LETTERS = 10;
 
 export const drawLetters = () => {
   const drawnLetters = [];
@@ -57,10 +56,10 @@ export const highestScoreFrom = (words) => {
       winningWord = word;
       highestScore = wordScore;
     } else if (wordScore === highestScore) {
-      winningWord = tieBreaker(word, winningWord, NUM_LETTERS);
+      winningWord = tieBreaker(word, winningWord);
     }
 
-    if (isMaxLength(winningWord, NUM_LETTERS)) {
+    if (isMaxLength(winningWord)) {
       break;
     }
   }
