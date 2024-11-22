@@ -79,12 +79,26 @@ export const scoreWord = (word) => {
   for (const letter of word) {
     totalScore += LETTER_SCORES[letter] || 0;
   }
-  if (word.length >= 7) {
-    totalScore += 8;
-  }
-  return totalScore;
+  return totalScore += word.length >= 7 ? 8 : 0; //ternary expression
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  let bestWord = '';
+  let bestScore = 0;
+
+  for (const word of words) {
+    let currentScore = scoreWord(word);
+    if (currentScore > bestScore) {
+      bestWord = word;
+      bestScore = currentScore;
+    } else if (currentScore === bestScore) {
+      if (word.length === 10 && bestWord.length !== 10) {
+        bestWord = word;
+      } else if (word.length < bestWord.length && bestWord.length !== 10) {
+        bestWord = word;
+      }
+    }
+  }
+  return { word: bestWord, score: bestScore };
 };
