@@ -1,3 +1,4 @@
+
 const LETTER_POOL = {
   A: 9,
   B: 2,
@@ -46,16 +47,21 @@ export const drawLetters = () => {
   return cards;
 };
 
-console.log(drawLetters());
-
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+for (const letter of input) {
+  if (!lettersInHand.includes(letter)) {
+    return false;
+  }
+  lettersInHand.splice(lettersInHand.indexOf(letter), 1)
+}
+return true;
 };
 
-export const scoreWord = (word) => {
-  // Implement this method for wave 3
-};
+// export const scoreWord = (word) => {
+//   // Implement this method for wave 3
+// };
 
-export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-};
+// export const highestScoreFrom = (words) => {
+//   // Implement this method for wave 4
+// };
