@@ -33,3 +33,28 @@ export const getLetterScore = (letter) => {
 
   return POINT_VALUES[letter] || 0;
 }
+
+export const compareScores = (currentWordData, currentWinnerData) => {
+  const {word: currentWord, score: currentScore} = currentWordData;
+  const {word: winningWord, score: winningScore} = currentWinnerData;
+
+  if (!winningWord || currentScore > winningScore) {
+    return {word: currentWord, score: currentScore};
+  } else if (currentScore === winningScore) {
+    return {word: tieBreaker(currentWord, winningWord), score: winningScore};
+  }
+  return currentWinnerData;
+}
+
+export const tieBreaker = (word, winningWord, NUM_LETTERS) => {
+  if (isMaxLength(winningWord, NUM_LETTERS)) {
+    return winningWord;
+  }
+  if (isMaxLength(word, NUM_LETTERS) || word.length < winningWord.length) {
+    return word;
+  }
+
+  return winningWord;
+};
+
+export const isMaxLength = (word, NUM_LETTERS) => word.length === NUM_LETTERS;

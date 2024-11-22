@@ -1,16 +1,18 @@
 import {
   createLetterPool,
   drawRandomLetter,
-  getLetterScore
+  getLetterScore,
+  tieBreaker,
+  isMaxLength
 } from './utilities.js';
 
-const NUMBER_OF_LETTERS_TO_DRAW = 10;
+const NUM_LETTERS = 10;
 
 export const drawLetters = () => {
   const drawnLetters = [];
   const poolCopy = [...createLetterPool()];
 
-  for (let i = 0; i < NUMBER_OF_LETTERS_TO_DRAW; i++) {
+  for (let i = 0; i < NUM_LETTERS; i++) {
     drawnLetters.push(drawRandomLetter(poolCopy));
   }
   return drawnLetters;
@@ -45,5 +47,23 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let winningWord = null;
+  let highestScore = 0;
+
+  for (const word of words) {
+    const wordScore = scoreWord(word);
+
+    if (!winningWord || wordScore > highestScore) {
+      winningWord = word;
+      highestScore = wordScore;
+    } else if (wordScore === highestScore) {
+      winningWord = tieBreaker(word, winningWord, NUM_LETTERS);
+    }
+
+    if (isMaxLength(winningWord, NUM_LETTERS)) {
+      break;
+    }
+  }
+
+  return {word: winningWord, score: highestScore};
 };
