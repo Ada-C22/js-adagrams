@@ -81,14 +81,10 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 
 export const scoreWord = (word) => {
-  let scores = 0;
-
-  if (word.length >= BONUS_MIN_LENGTH) {
-    scores = scores + BONUS_POINTS;
-  };
+  let scores = word.length >= BONUS_MIN_LENGTH ? BONUS_POINTS : 0;
 
   for (const letter of word.toUpperCase()) {
-    scores = scores + SCORES_CHART[letter];
+    scores += SCORES_CHART[letter];
   };
 
   return scores;
@@ -128,13 +124,16 @@ const findMaxScores = (scores) => {
         return candidate;
       } else if (candidate.word.length < winnerLength) {
         winner = candidate;
-        winnerLength = winner.length;
+        winnerLength = winner.word.length;
       };
     };
     return winner;
   };
 
 export const highestScoreFrom = (words) => {
+  if (!words || words.length === 0) {
+    return { word: null, score: 0 };
+  };
 
   const scores = findAllScores(words);
   const maxScores = findMaxScores(scores);
