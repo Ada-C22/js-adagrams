@@ -59,6 +59,7 @@ const handSize = 10;
 const bonusWordLength = 7
 const bonusForLongWord = 8
 
+// Wave 1 //
 const getListOfLetters = () => {
   // create an empty list to hold the letter pool as weighted list
   let weightedList = [];
@@ -89,6 +90,7 @@ export const drawLetters = () => {
   return letters
 };
 
+// Wave 2 //
 export const usesAvailableLetters = (input, lettersInHand) => {
   // take the input and change it to upper case so it matches the lettersInHand
   input = input.toUpperCase()
@@ -109,6 +111,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
+// Wave 3 //
 export const addBonusPoints = (word) => {
   let bonusPoints = 0
   // check if the word length is the length for bonus points and awarding points if it is
@@ -132,6 +135,7 @@ export const scoreWord = (word) => {
   return wordScore
 };
 
+// Wave 4 //
 export const tieBreaker = (highScoreWords, maxScore) => {
   let shortestWord = highScoreWords[0];
 
