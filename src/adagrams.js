@@ -16,17 +16,15 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  const letterBankCopy = [...lettersInHand];
+  const lettersSet = new Set(lettersInHand);
 
   for (const letter of input.toUpperCase()) {
-    const letterIndex = letterBankCopy.indexOf(letter);
-    if (letterIndex !== -1) {
-      letterBankCopy.splice(letterIndex, 1);
+    if (lettersSet.has(letter)) {
+      lettersSet.delete(letter);
     } else {
       return false;
     }
   }
-
   return true;
 };
 
