@@ -48,6 +48,35 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  // change to uppercase
+  const inHandUpper = lettersInHand.map(letter => letter.toUpperCase());
+  const inputUpper = input.toUpperCase();
+
+  // create Object for lettersInHand  
+  let letterCount = {};
+  for (let letter of inHandUpper) {
+    if (letter in letterCount) {
+    letterCount[letter] += 1;
+  } else {
+    letterCount[letter] = 1;
+  }  
+}
+  // create Object for input
+  let newInput = {}
+  for (const letter of inputUpper) {
+    if (letter in newInput) {
+      newInput[letter] += 1;
+    } else {
+      newInput[letter] = 1;
+    }
+  }
+  // compare if input total match lettersInHand
+  for (let [letter, count] of Object.entries(newInput)) {    
+    if (!(letter in letterCount) || (letterCount[letter] < count)) {
+      return false;
+    } 
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
