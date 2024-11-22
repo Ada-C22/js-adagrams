@@ -103,12 +103,19 @@ export const drawLetters = () => {
          
 //     return hand_of_letters_list
 
+export const usesAvailableLetters = (word, handOfLettersList) => {
+  const wordBankList = [...handOfLettersList];
 
+  for (const letter of word.toUpperCase()) {
+    if (!wordBankList.includes(letter)) {
+      return false;
+    } else {
+      const index = wordBankList.indexOf(letter);
+      wordBankList.splice(index, 1);
+    }
+  }
 
-
-export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-  
+  return true;
 };
 
 // def uses_available_letters(word, hand_of_letters_list):
@@ -133,9 +140,23 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     // return True
 
 
-// export const scoreWord = (word) => {
-  // Implement this method for wave 3
-// };
+export const scoreWord = (word) => {
+  if (!word) {
+    return 0;
+  }
+
+  let totalScore = 0;
+
+  for (const letter of word.toUpperCase()) {
+    totalScore += letterPointValues[letter] || 0;
+  }
+
+  if (word.length >= 7) {
+    totalScore += 8;
+  }
+
+  return totalScore;
+};
 
 
 // def score_word(word):
