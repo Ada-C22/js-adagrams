@@ -94,6 +94,14 @@ describe("Adagrams", () => {
       const isValid = usesAvailableLetters(word, drawn);
       expect(isValid).toBe(false);
     });
+
+    it("handles empty input", () => {
+      const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
+      const word = "";
+
+      const isValid = usesAvailableLetters(word, drawn);
+      expect(isValid).toBe(true);
+    });
   });
 
   describe("scoreWord", () => {
