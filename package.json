@@ -4,7 +4,7 @@
   "description": "JavaScript version of the Adagrams project",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "npx eslint",
     "coverage": "open coverage/lcov-report/index.html",
     "demo-game": "babel-node src/demo.js"
