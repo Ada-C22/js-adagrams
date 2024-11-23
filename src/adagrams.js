@@ -69,6 +69,17 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const clonedArray = [...lettersInHand];
+  input = input.toUpperCase();
+
+  for (const letter of input) {
+    if (!clonedArray.includes(letter)) {
+      return false;
+    } 
+  const index = clonedArray.indexOf(letter); 
+  clonedArray.splice(index, 1); //removes the letter from the array 
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
