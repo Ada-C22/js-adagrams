@@ -149,6 +149,7 @@ describe("Adagrams", () => {
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
       throw "Complete test by adding an assertion";
+      
     });
 
     describe("in case of tied score", () => {
