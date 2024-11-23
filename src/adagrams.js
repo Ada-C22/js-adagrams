@@ -57,6 +57,8 @@ const LETTER_SCORE = {
 };
 
 const HAND_SIZE = 10
+const MIN_BONUS_LENGTH = 7
+const LENGTH_BONUS = 8
 
 const createWeightedLetterPool = () =>{
   let weightedLetterPool = [];
@@ -119,8 +121,8 @@ export const scoreWord = (word) => {
   for (let letter of word){
     score += LETTER_SCORE[letter];
   }
-  if(word.length >= 7){
-    score += 8;
+  if(word.length >= MIN_BONUS_LENGTH){
+    score += LENGTH_BONUS;
   }
   return score;
 };
