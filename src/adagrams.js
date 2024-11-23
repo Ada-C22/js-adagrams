@@ -30,12 +30,12 @@ export const drawLetters = () => {
     Z: 1
   };
   // change object to array
-  let letterList = []
+  let letterList = [];
   for (let [letter, count] of Object.entries(letterDist)) {
   letterList.push(...Array(count).fill(letter));
   }
   // defind result and copy a temporary array
-  let result = []
+  let result = [];
   const tempList = [...letterList];
   // use loop to Random pick 10 letter 
   for (let i = 0; i < 10; i++) {
@@ -64,7 +64,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   }  
 }
   // create new Object for input
-  let newInput = {}
+  let newInput = {};
   for (let letter of inputUpper) {
     if (letter in newInput) {
       newInput[letter] += 1;
@@ -112,4 +112,24 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  // create an object store word and score
+  let WordAndScore = {};
+  let winScore= 0;
+  let winWord = '';
+  for (let word of words) {
+    WordAndScore[word] = scoreWord(word);
+  };
+  for (let [key,values] of Object.entries(WordAndScore)) {
+    if (values > winScore) {
+      winScore = values;
+      winWord = key;
+    } else if (values === winScore) {
+      if (key.length === 10 && winWord.length !== 10) {
+        winWord = key;
+      } else if (key.length < winWord.length && key.length !== 10 && winWord.length !== 10) {
+        winWord = key;
+      }
+    }
+  }
+  return { word: winWord, score: winScore };
 };
