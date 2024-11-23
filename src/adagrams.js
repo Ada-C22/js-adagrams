@@ -47,10 +47,9 @@ export const drawLetters = () => {
     const lastIndex = totalLetterCount - i - 1;
     [LetterPoolList[randomIndex], LetterPoolList[lastIndex]] = [LetterPoolList[lastIndex], LetterPoolList[randomIndex]]
   }
-
   return handOfLetters;
-
 };
+
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
@@ -71,6 +70,8 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   }
   return true;
 };
+
+
 const SCORE_CHART = {
   'A': 1, 'E': 1, 'I': 1, 'O': 1, 'U': 1, 'L': 1, 'N': 1, 'R': 1, 'S': 1, 'T': 1,
   'D': 2, 'G': 2,
@@ -80,6 +81,7 @@ const SCORE_CHART = {
   'J': 8, 'X': 8,
   'Q': 10, 'Z': 10
   }
+
 export const scoreWord = (word) => {
   // Implement this method for wave 3
   let score = 0
@@ -96,5 +98,17 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  let currentMax = 0;
+  let currentWinWord = '';
+  for (const word of words) {
+    if (scoreWord(word) > currentMax) {
+      currentMax = scoreWord(word);
+      currentWinWord = word;
+    } else if (scoreWord(word) === currentMax && currentWinWord.length != 10) {
+      if(word.length < currentWinWord.length || word.length === 10)
+      currentWinWord = word;
+    } 
+  }
+  return {'word':currentWinWord, 'score':currentMax}
 };
  
