@@ -128,23 +128,21 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  let highestScore = {
-    word: words[0],
-    score: scoreWord(words[0])
-  };
+  let highestWord = words[0]
+  let highestWordScore = scoreWord(words[0])
 
   for (let word of words){
     let currentWordScore = scoreWord(word);
-    if (currentWordScore > highestScore.score){
-      highestScore.word = word;
-      highestScore.score= currentWordScore;
-    } else if (currentWordScore === highestScore.score) {
-      if (highestScore.word.length === 10){
+    if (currentWordScore > highestWordScore){
+      highestWord = word;
+      highestWordScore= currentWordScore;
+    } else if (currentWordScore === highestWordScore) {
+      if (highestWord.length === 10){
         continue;
-      }else if (word.length === 10 || word.length < highestScore.word.length){
-        highestScore.word = word;
-        highestScore.score = currentWordScore;
+      }else if (word.length === 10 || word.length < highestWord.length){
+        highestWord = word;
+        highestWordScore = currentWordScore;
       }
     }
-  } return highestScore;
+  } return {word: highestWord, score: highestWordScore};
 };
