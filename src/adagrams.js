@@ -1,5 +1,4 @@
 import {
-  NUM_LETTERS,
   createLetterPool,
   drawRandomLetter,
   getLetterScore,
@@ -7,7 +6,13 @@ import {
   isMaxLength,
   createLetterCountsMap,
   checkLetterAvailability
-} from './utilities.js';
+} from './utils/adagrams_helpers.js';
+
+import {
+  BONUS_LENGTH,
+  BONUS_POINTS,
+  NUM_LETTERS
+} from './utils/constants.js'
 
 export const drawLetters = () => {
   const poolCopy = [...createLetterPool()];
@@ -28,16 +33,14 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  const bonusLength = 7;
-  const bonusPoints = 8;
   let totalScore = 0;
 
   word = word.toUpperCase();
   for (const letter of word) {
     totalScore += getLetterScore(letter);
   }
-  if (word.length >= bonusLength) {
-    totalScore += bonusPoints;
+  if (word.length >= BONUS_LENGTH) {
+    totalScore += BONUS_POINTS;
   }
   return totalScore;
 };
