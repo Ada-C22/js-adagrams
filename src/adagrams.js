@@ -85,7 +85,6 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   const inputLower = input.toUpperCase();
   const maxLetterCount = {};
-  const lettersUsed = {};
 
   for (let letter of lettersInHand){
     if (letter in maxLetterCount){
@@ -98,11 +97,9 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   for (let letter of inputLower){
     if (!(lettersInHand.includes(letter))){
       return false;
-    }else if (!(letter in lettersUsed)){
-      lettersUsed[letter] = 1;
     }else{
-      if(lettersUsed[letter] < maxLetterCount[letter]){
-        lettersUsed[letter] += 1;
+      if(maxLetterCount[letter] > 0){
+        maxLetterCount[letter] -= 1;
       }else{
         return false;
       }
