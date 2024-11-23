@@ -25,7 +25,7 @@ const LETTER_POOL = {
   'X': 1, 
   'Y': 2, 
   'Z': 1
-}
+};
 
 const LETTER_SCORE = {
   'A': 1, 
@@ -54,7 +54,7 @@ const LETTER_SCORE = {
   'X': 8, 
   'Y': 4, 
   'Z': 10
-}
+};
 
 export const drawLetters = () => {
   const hand = [];
@@ -72,13 +72,13 @@ export const drawLetters = () => {
     hand.push(randomLetter);
     weightedLetterPool.splice(randomIdx,1);
   }
-  return hand
+  return hand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   const inputLower = input.toUpperCase();
-  const maxLetterCount = {}
-  const lettersUsed = {}
+  const maxLetterCount = {};
+  const lettersUsed = {};
 
   for (let letter of lettersInHand){
     if (letter in maxLetterCount){
@@ -95,7 +95,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       lettersUsed[letter] = 1;
     }else{
       if(lettersUsed[letter] < maxLetterCount[letter]){
-        lettersUsed[letter] += 1
+        lettersUsed[letter] += 1;
       }else{
         return false;
       }
@@ -111,9 +111,9 @@ export const scoreWord = (word) => {
     score += LETTER_SCORE[letter];
   }
   if(word.length >= 7){
-    score += 8
+    score += 8;
   }
-  return score
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
@@ -135,5 +135,5 @@ export const highestScoreFrom = (words) => {
         highestScore.score = currentWordScore;
       }
     }
-  } return highestScore
+  } return highestScore;
 };
