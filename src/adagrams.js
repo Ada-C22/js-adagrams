@@ -4,7 +4,9 @@ import {
   drawRandomLetter,
   getLetterScore,
   updateWinner,
-  isMaxLength
+  isMaxLength,
+  createLetterCountsMap,
+  checkLetterAvailability
 } from './utilities.js';
 
 export const drawLetters = () => {
@@ -13,14 +15,14 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  const lettersSet = new Set(lettersInHand);
+  const letterCounts = createLetterCountsMap(lettersInHand);
+  const upperCaseInput = input.toUpperCase();
 
-  for (const letter of input.toUpperCase()) {
-    if (lettersSet.has(letter)) {
-      lettersSet.delete(letter);
-    } else {
+  for (const letter of upperCaseInput) {
+    if (!checkLetterAvailability(letter, letterCounts)) {
       return false;
     }
+    letterCounts.set(letter, letterCounts.get(letter) - 1);
   }
   return true;
 };
@@ -45,7 +47,8 @@ export const highestScoreFrom = (words) => {
   let winningScore = 0;
 
   for (const currentWord of words) {
-    const currentData = { currentWord, currentScore: scoreWord(currentWord) };
+    const currentScore = scoreWord(currentWord);
+    const currentData = { currentWord, currentScore };
     const winningData = { winningWord, winningScore };
 
     ({ winningWord, winningScore } = updateWinner(currentData, winningData));

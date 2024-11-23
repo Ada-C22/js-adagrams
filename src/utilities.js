@@ -57,3 +57,15 @@ export const tieBreaker = (word, winningWord) => {
 };
 
 export const isMaxLength = (word) => word.length === NUM_LETTERS;
+
+export const createLetterCountsMap = (lettersInHand) => {
+  const letterCounts = new Map();
+  for (const letter of lettersInHand) {
+    letterCounts.set(letter, (letterCounts.get(letter) || 0) + 1);
+  }
+  return letterCounts;
+};
+
+export const checkLetterAvailability = (letter, letterCounts) => {
+  return letterCounts.has(letter) && letterCounts.get(letter) > 0;
+};
