@@ -56,6 +56,8 @@ const LETTER_SCORE = {
   'Z': 10
 };
 
+const HAND_SIZE = 10
+
 const createWeightedLetterPool = () =>{
   let weightedLetterPool = [];
   for (const [letter, freq] of Object.entries(LETTER_POOL)){
@@ -70,7 +72,8 @@ export const drawLetters = () => {
   const hand = [];
   const weightedLetterPool = createWeightedLetterPool()
 
-  while (hand.length < 10){
+
+  while (hand.length < HAND_SIZE){
     let randomIdx = Math.floor(Math.random()*weightedLetterPool.length);
     let randomLetter = weightedLetterPool[randomIdx];
     hand.push(randomLetter);
