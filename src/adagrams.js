@@ -87,25 +87,43 @@ return hand;
 // Implement this method for wave 1
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  let copyLettersInHand = lettersInHand;
   let inputUp = input.toUpperCase();
+  // create an object with frequency of the letters in the input
+  // create an object with frequency of the letters in the lettersInHand
+  const inputCount = {};
+  const letterInHandCount = {};
 
   for (const letter of inputUp) {
-    if (!copyLettersInHand.includes(letter)){
-      return false;
+    if(!inputCount[letter]){
+      inputCount[letter] = 1;
+    } else {
+      inputCount[letter] +=1; 
     }
-    //  else if copyLettersInHand.icludes(letter) 
-
-
   }
+
+  for (const char of lettersInHand) {
+    if (!letterInHandCount[char]) {
+      letterInHandCount[char] = 1;
+    } else {
+      letterInHandCount[char] +=1;
+    }
+  }
+// compare if the letter from input is in lettersInHand and it's frequency is not higher
+  for (const inputLetter of inputUp) {
+    if (!letterInHandCount[inputLetter] || inputCount[inputLetter] > letterInHandCount[inputLetter]){
+      return false;
+    } 
+  }
+  return true;  
   
+  };
   
 
 
 
 
   // Implement this method for wave 2
-};
+
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
