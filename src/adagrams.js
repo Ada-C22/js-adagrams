@@ -27,6 +27,34 @@ let letterPool = {};
   letterPool['Z'] = 1;
 
 // console.log(letterPool);
+let SCORE_CHART = {}
+  SCORE_CHART['A'] = 1
+  SCORE_CHART['B'] = 3;
+  SCORE_CHART['C'] = 3;
+  SCORE_CHART['D'] = 2;
+  SCORE_CHART['E'] = 1;
+  SCORE_CHART['F'] = 4;
+  SCORE_CHART['G'] = 2;
+  SCORE_CHART['H'] = 4;
+  SCORE_CHART['I'] = 1;
+  SCORE_CHART['J'] = 8;
+  SCORE_CHART['K'] = 5;
+  SCORE_CHART['L'] = 1;
+  SCORE_CHART['M'] = 3;
+  SCORE_CHART['N'] = 1;
+  SCORE_CHART['O'] = 1;
+  SCORE_CHART['P'] = 3;
+  SCORE_CHART['Q'] = 10;
+  SCORE_CHART['R'] = 1;
+  SCORE_CHART['S'] = 1;
+  SCORE_CHART['T'] = 1;
+  SCORE_CHART['U'] = 1;
+  SCORE_CHART['V'] = 4;
+  SCORE_CHART['W'] = 4;
+  SCORE_CHART['X'] = 8;
+  SCORE_CHART['Y'] = 4;
+  SCORE_CHART['Z'] = 10;
+
 
 export const drawLetters = () => {
   // Implement this method for wave 1
@@ -84,6 +112,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+
 };
 
 export const highestScoreFrom = (words) => {
