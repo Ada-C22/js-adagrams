@@ -37,10 +37,7 @@ export const updateWinner = (currentData, winningData) => {
 };
 
 export const tieBreaker = (word, winningWord) => {
-  if (isMaxLength(winningWord)) {
-    return winningWord;
-  }
-  if (isMaxLength(word, NUM_LETTERS) || word.length < winningWord.length) {
+  if (isMaxLength(word) || word.length < winningWord.length) {
     return word;
   }
   return winningWord;
