@@ -1,5 +1,3 @@
-// import { includes } from "core-js/core/array";
-
 const letterPool = {
   'A': 9, 
   'B': 2, 
@@ -29,6 +27,35 @@ const letterPool = {
   'Z': 1
 };
 
+const scoreChart = {
+  'A': 1, 
+  'B': 3, 
+  'C': 3, 
+  'D': 2, 
+  'E': 1, 
+  'F': 4, 
+  'G': 2, 
+  'H': 4, 
+  'I': 1, 
+  'J': 8, 
+  'K': 5, 
+  'L': 1, 
+  'M': 3, 
+  'N': 1, 
+  'O': 1, 
+  'P': 3, 
+  'Q': 10, 
+  'R': 1, 
+  'S': 1, 
+  'T': 1, 
+  'U': 1, 
+  'V': 4, 
+  'W': 4, 
+  'X': 8, 
+  'Y': 4, 
+  'Z': 10
+};
+
 export const drawLetters = () => {
   const letters = [];
   
@@ -38,18 +65,21 @@ export const drawLetters = () => {
     }
   }
   const hand = [];
-  const letterCount = {};
+  const letterDrawCount = {};
+
   while (hand.length < 10) {
     const letterIndex = Math.floor(Math.random() * letters.length);
     const randomLetter = letters[letterIndex];
 
-    if (!letterCount[randomLetter]) {
-      letterCount[randomLetter] = 0;
+    if (!hand.includes(randomLetter)) {
+      letterDrawCount[randomLetter] = 0;
     }
 
-    if (letterCount[randomLetter] < letterPool[randomLetter]) {
+    if (letterDrawCount[randomLetter] < letterPool[randomLetter]) {
       hand.push(randomLetter);
-      letterCount[randomLetter] += 1;
+      letterDrawCount[randomLetter] += 1;
+    } else {
+      console.log(`${randomLetter} has already been drawn ${letterDrawCount[randomLetter]} times.`);
     }
   }
   return hand;  
@@ -70,10 +100,20 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   }
   return true;
 };
-//  "aksana" [ a, , a, k, n, a, i, u , h, t]
-// export const scoreWord = (word) => {
-//   // Implement this method for wave 3
-// };
+
+export const scoreWord = (word) => {
+  let totalScore = 0;
+  const upperCaseWord = word.toUpperCase()
+  for (const letter of upperCaseWord) {
+    if (letter in scoreChart) {
+      totalScore += scoreChart[letter];
+    }
+    if (word.length >= 7 && word.length <=10) {
+      totalScore += 8;
+    }
+  }
+  return totalScore;
+};
 
 // export const highestScoreFrom = (words) => {
 //   // Implement this method for wave 4
