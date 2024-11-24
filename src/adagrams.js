@@ -36,10 +36,8 @@ export const drawLetters = () => {
         availableLetters.push(letter)
     }
   }
-  // Draw 10 letters
+  
   for (let i = 0; i < 10; i++) {
-    // picks random number between 0 and total number of elements
-    // Math.random() pick decimal number and floor is used to round it up
     const randomIndex = Math.floor(Math.random() * availableLetters.length);
     const removedLetter = availableLetters.splice(randomIndex, 1)[0];
     randomDrawnLetters.push(removedLetter);
@@ -99,5 +97,29 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  
+  let winningScore = 0;
+  let winningWord = null;
+  const winningWordScore = {};
+
+  for (const word of words) {
+    const runningScore = scoreWord(word);
+
+    if (runningScore > winningScore) {
+      winningScore = runningScore;
+      winningWord = word;
+    }
+
+    else if (runningScore === winningScore) {
+      if (word.length === 10 && winningWord.length !== 10) {
+        winningWord = word;
+      }
+      else if (word.length < winningWord.length && word.length !== 10 && winningWord.length !== 10) {
+        winningWord = word;
+      }
+    }
+  }
+  winningWordScore.word = winningWord;
+  winningWordScore.score = winningScore;
+  return winningWordScore;
 };
