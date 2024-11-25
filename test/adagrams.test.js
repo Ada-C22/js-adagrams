@@ -39,7 +39,7 @@ describe("Adagrams", () => {
     it("draws ten letters from the letter pool", () => {
       const drawn = drawLetters();
 
-      expect(drawn).toHaveLength(10);
+  expect(drawn).toHaveLength(10);
     });
 
     it("returns an array, and each item is a single-letter string", () => {
