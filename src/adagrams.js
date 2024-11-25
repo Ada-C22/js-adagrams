@@ -93,4 +93,30 @@ export const scoreWord = (word) => {
     }
     return score;
   };
+
+  export const highestScoreFrom = (words) => {
+    let bestScore = { word: '', score: 0 };
+  
+    for (let word of words) {
+      let currentScore = scoreWord(word);
+  
+      // If current word has a higher score, update bestScore
+      if (currentScore > bestScore.score) {
+        bestScore.score = currentScore;
+        bestScore.word = word;
+      }
+      // Handle tie cases
+      else if (currentScore === bestScore.score) {
+        // If the current word is shorter, update (unless the best word is 10 chars long)
+        if (word.length < bestScore.word.length && bestScore.word.length !== 10) {
+          bestScore.word = word;
+        }
+        // If the current word is 10 characters long and the best word is not, update
+        else if (word.length === 10 && bestScore.word.length !== 10) {
+          bestScore.word = word;
+        }
+      }
+    }
+    return bestScore;
+  };
   
