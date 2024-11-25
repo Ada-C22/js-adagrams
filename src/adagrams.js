@@ -55,19 +55,22 @@ const getWeightedRandom = (object) => {
     }
   }
 }
+const buildFrequencyMap = (iterable) => {
+  const freqMap = {}
+  for (const x of iterable) {
+    freqMap[x] = (freqMap[x] ?? 0) + 1;
+  }
+  return freqMap;
+};
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   // Frequency map for a letter bank
-  const bankFreq = {};
-  for (const letter of lettersInHand) {
-    bankFreq[letter] = (bankFreq[letter] ?? 0) + 1;
-  }
+  const bankFreq = buildFrequencyMap(lettersInHand);
+
   // Frequency map for word
-  const wordFreq = {}
-  for (const char of input) {
-    wordFreq[char] = (wordFreq[char] ?? 0) + 1;
-  }
+  const wordFreq = buildFrequencyMap(input);
+
 
   // Check if letter in word exists in letter bank and word letter count does not exceed bank letter count
   for (const letter in wordFreq) {
@@ -120,34 +123,39 @@ export const scoreWord = (word) => {
   return score;
 };
 
-export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+const createScoreMap = (words) => {
   const wordScore = {};
   for (const word of words) {
-    const score = scoreWord(word);
-    wordScore[word] = score;
+      wordScore[word] = scoreWord(word);
   }
+  return wordScore;
+};
 
+const findHighestScoringWords = (wordScore) => {
   const maxScore = Math.max(...Object.values(wordScore));
-  
-  const candidates = []
-  for (const [word, score] of Object.entries(wordScore)) {
-    if (score === maxScore) {
-      candidates.push(word);
-    }
-  }
-  
-  const minLength = Math.min(...candidates.map(word => word.length));
+  return Object.entries(wordScore)
+    .filter(([_, score]) => score === maxScore)
+    .map(([word]) => word);
+};
 
-  let currentWinner = '';
-  for (const word of candidates) {
-    if (word.length === 10) {
-      currentWinner = word;
-      break;
-    }
-    if (word.length === minLength && !currentWinner) {
-      currentWinner = word;
-    }
+const findWinningWord = (candidates) => {
+  // Check for 10-letter words first
+  const tenLetterWord = candidates.find(word => word.length === 10);
+  if (tenLetterWord) return tenLetterWord;
+
+  // If no 10-letter word, find shortest
+  const minLength = Math.min(...candidates.map(word => word.length));
+  return candidates.find(word => word.length === minLength);
+};
+
+export const highestScoreFrom = (words) => {
+  // Implement this method for wave 4
+  const wordScore = createScoreMap(words);
+  const candidates = findHighestScoringWords(wordScore);
+  const winningWord = findWinningWord(candidates);
+  
+  return {
+    word: winningWord,
+    score: wordScore[winningWord]
   }
-  return { word: currentWinner, score: maxScore };
 };
