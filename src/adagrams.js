@@ -108,13 +108,36 @@ export const scoreWord = (word) => {
     if (letter in scoreChart) {
       totalScore += scoreChart[letter];
     }
-    if (word.length >= 7 && word.length <=10) {
-      totalScore += 8;
-    }
+  }
+
+  if (word.length >= 7 && word.length <=10) {
+    totalScore += 8;
   }
   return totalScore;
 };
 
-// export const highestScoreFrom = (words) => {
-//   // Implement this method for wave 4
-// };
+//words = ['love', 'act, 'beatiful', 'aaaaaaaaaa']
+export const highestScoreFrom = (words) => {
+  //initialize empty object to store word and score
+  let bestWord = '';
+  let bestScore = 0;
+
+  for (const word of words) {
+    let score = scoreWord(word)
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestWord = word;
+    }
+
+    if (score === bestScore) {
+      if (word.length === 10 && bestWord.length !== 10) {
+        bestWord = word;
+      }
+      else if (word.length < bestWord.length && bestWord.length !== 10) {
+        bestWord = word;  
+      }
+    }
+  }
+  return { word: bestWord, score: bestScore };   
+};
