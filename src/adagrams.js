@@ -26,62 +26,86 @@ export const drawLetters = () => {
     X : 1, 
     Y : 2, 
     Z : 1
-  }; 
-  
-  let letterPoolList= generateLetterPoolList(letterPool);
-  let lPLLength = letterPoolList.length;
-
-  let drawnLetters = []
+  };
+  const drawnLetters = [];
   for (let iteration = 0; iteration < 10; iteration++) { 
-    console.log(`length of letter list`)
-    console.log(letterPoolList.length)
-    let randomIndex = randomInteger(0, lPLLength);
-    console.log(`random index is:`)
-    console.log(randomIndex)
-    // console.log(`letter list before`)
-    // console.log(letterPoolList)
-    let pulledLetter = letterPoolList.splice(randomIndex,1);
-    // console.log(`letter list after `)
-    // console.log(letterPoolList)
-    drawnLetters.push(pulledLetter[0]);
-    console.log(`pulled letter is: `)
-    console.log(pulledLetter[0])
-    console.log(`drawn letter list after`)
-    console.log(drawnLetters)
-
-    lPLLength = letterPoolList.length;    
-  }
-  console.log(`final drawn letters`)
-  console.log(drawnLetters)
-  return drawnLetters;
-}
-  
-const generateLetterPoolList = (letterPool) => {
-  let letterPoolList = [];
-  Object.keys(letterPool).forEach(key => {
-    const timesToAdd = letterPool[key];
-    for (let i = 0; i < timesToAdd; i++) {
-      letterPoolList.push(key);
+    const keys = Object.keys(letterPool);
+    const key = keys[getRandomInt(0, keys.length)];
+    letterPool[key]--;
+    drawnLetters.push(key)
+    if (letterPool[key] == 0) {
+      delete letterPool[key];
     }
-  })
-  return letterPoolList;
+  }
+  return drawnLetters;
+  
+};
+
+const getRandomInt = (min, max) => {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximu
 }
 
-const randomInteger = (min,max) => {
-  console.log(`min is`)
-  console.log(min)
-  console.log(`max is`)
-  console.log(max)
-  return Math.random(min,max)
-  // return Math.floor(Math.random() * (max - min - 1)) + min;
-}
-
-
-  // Implement this method for wave 1
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-};
+  
+  if (input.length > 10) {
+    return false;
+  }
+  const lettersInHandOccurenceDictionary = arrayToOccurenceDict(lettersInHand) 
+  for (let index = 0; index < input.length; index++) {
+    let key = input[index];
+    if (lettersInHandOccurenceDictionary[key] === undefined) {
+      return false
+    }
+    else if (lettersInHandOccurenceDictionary[key] === 0) {
+      return false
+    }
+    else {
+      lettersInHandOccurenceDictionary[key]--;
+    }
+
+    }
+  return true;
+  }
+
+
+const arrayToOccurenceDict = (array) => {
+  const occurenceDictionary = {}
+  for (let index = 0; index < array.length; index ++){
+    let key = array[index];
+    if (occurenceDictionary[key] !== undefined) {
+      occurenceDictionary[key]++ 
+    } else {
+      occurenceDictionary[key] = 1
+    }  
+  }
+  return occurenceDictionary
+  }
+  
+//   const dCLettersinHand = JSON.parse(JSON.stringify(lettersInHand));
+//   for (let index = 0; index < input.length; index ++) {
+//     let letter = input[index]
+//     if (checkArray(lettersInHand,letter) !== undefined ) {
+//       let dcLettersinHand = dcLettersinHand.remove(letter);
+//     else {
+      
+
+//     }
+//     };
+
+    
+
+
+// //   }
+
+//   const checkArray = (array, subStr) => { 
+//     const regex = new RegExp(substr, 'i');
+//     const subStr = array.filter(str => regex.test(str));
+//   }
+  
+// };
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
