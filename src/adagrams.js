@@ -41,15 +41,8 @@ export const drawLetters = () => {
   
 };
 
-const getRandomInt = (min, max) => {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
-  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximu
-}
 
-
-export const usesAvailableLetters = (input, lettersInHand) => {
-  
+export const usesAvailableLetters = (input, lettersInHand) => {  
   if (input.length > 10) {
     return false;
   }
@@ -65,11 +58,68 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     else {
       lettersInHandOccurenceDictionary[key]--;
     }
+  }
+  return true;
+  };
+
+
+
+
+export const scoreWord = (word) => {
+  if (word.length === 0) {
+    return 0;
+  }
+  let wordScore = 0; 
+  const letterOccurenceDict = arrayToOccurenceDict(word.toUpperCase())
+  const keys = Object.keys(letterOccurenceDict);
+  for (let index = 0; index < keys.length; index++) {
+    let key = keys[index];
+    wordScore = wordScore + (getLetterValue(key,letterOccurenceDict))
+  }
+  if (word.length >= 7) {
+    wordScore += 8
+  }
+  console.log(`word score is `, wordScore)
+  return wordScore
+
+
+
+
+  // Implement this method for wave 3
+};
+
+export const highestScoreFrom = (words) => {
+  let topScoreNum = 0;
+  let topScoreWord = '';
+
+  for (let index =0; index <words.length; index++) {
+    let currentWord = words[index];
+    let currentScore = scoreWord(currentWord);
+    if (currentScore > topScoreNum){
+      // console.log(`current score was greater than top score`)
+      topScoreNum = currentScore;
+      topScoreWord = currentWord;
+    }
+    else if (currentScore === topScoreNum) {
+      // console.log(`current score equal to top score`)
+      if (currentWord.length === 10 && topScoreWord.length !== 10) {
+        // console.log(`current word is 10 top is not, current wins`)
+        topScoreNum = currentScore; 
+        topScoreWord =currentWord; 
+      }
+      else if (currentWord.length < topScoreWord.length && topScoreWord.length !== 10) {
+        topScoreNum = currentScore; 
+        topScoreWord = currentWord; 
+      }
+    }
 
     }
-  return true;
-  }
+  console.log({word: topScoreWord, score: topScoreNum})
+  return {word: topScoreWord, score:topScoreNum}
+};
 
+
+//// helper functions///////
 
 const arrayToOccurenceDict = (array) => {
   const occurenceDictionary = {}
@@ -84,35 +134,33 @@ const arrayToOccurenceDict = (array) => {
   return occurenceDictionary
   }
   
-//   const dCLettersinHand = JSON.parse(JSON.stringify(lettersInHand));
-//   for (let index = 0; index < input.length; index ++) {
-//     let letter = input[index]
-//     if (checkArray(lettersInHand,letter) !== undefined ) {
-//       let dcLettersinHand = dcLettersinHand.remove(letter);
-//     else {
-      
+  const getRandomInt = (min, max) => {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximu
+  }
 
-//     }
-//     };
-
-    
-
-
-// //   }
-
-//   const checkArray = (array, subStr) => { 
-//     const regex = new RegExp(substr, 'i');
-//     const subStr = array.filter(str => regex.test(str));
-//   }
-  
-// };
-
-export const scoreWord = (word) => {
-  // Implement this method for wave 3
-};
-
-export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-};
-
-
+  const getLetterValue = (key, letterOccurenceDict) => {
+    const lettersAndValues = {
+      //1 point
+      'A' : 1, 'E' : 1, 'I' : 1, 'O' : 1 , 'U' : 1, 'L' : 1, 'N' : 1, 'R' : 1, 'S' : 1, 'T' : 1,
+      //2 points
+      'D' : 2, 'G' : 2,
+      //3 points
+      'B' : 3, 'C' : 3, 'M' : 3, 'P' : 3,
+      //4 points: 
+      'F' : 4, 'H' : 4, 'V' : 4, 'W' : 4, 'Y': 4,
+      //5 points: 
+      'K' : 5,
+      //6 points: 
+      'J' : 8, 'X' : 8,
+      //7 points: 
+      'Q' : 10, 'Z' : 10
+      }
+    if (isNaN(lettersAndValues[key])){
+      return letterOccurenceDict[key]
+    }
+    let letterValue = lettersAndValues[key];
+    let letterOccurence = letterOccurenceDict[key];
+    return letterValue * letterOccurence
+    };
