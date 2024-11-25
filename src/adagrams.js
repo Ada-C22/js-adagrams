@@ -28,19 +28,30 @@ export const drawLetters = () => {
     Y: 2,
     Z: 1,
   };
-
-
+  const letterBank = [];
+  const workingPool = { ...letterPool };
+  for (let i = 0; i < 10; i++) {
+    const letter = getWeightedRandom(workingPool);  
+    if (workingPool[letter] > 0) {
+      letterBank.push(letter);
+      workingPool[letter]--;
+    } else {
+      i--;
+      continue;
+    }
+  }
+  return letterBank;
 };
 
 const getWeightedRandom = (object) => {
   const total = Object.values(object).reduce((sum, weight) => sum + weight);
-  const random = Math.random() * total;
+  const random = Math.floor(Math.random() * total);
   
   let steppingSum = 0;
 
   for (const [letter, weight] of Object.entries(object)) {
     steppingSum += weight;
-    if (steppingSum > random) {
+    if (steppingSum >= random) {
       return letter;
     }
   }
