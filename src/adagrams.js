@@ -59,8 +59,25 @@ const getWeightedRandom = (object) => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-};
+  // Frequency map for a letter bank
+  const bankFreq = {};
+  for (const letter of lettersInHand) {
+    bankFreq[letter] = (bankFreq[letter] ?? 0) + 1;
+  }
+  // Frequency map for word
+  const wordFreq = {}
+  for (const char of input) {
+    wordFreq[char] = (wordFreq[char] ?? 0) + 1;
+  }
 
+  // Check if letter in word exists in letter bank and word letter count does not exceed bank letter count
+  for (const letter in wordFreq) {
+    if (!bankFreq[letter] || wordFreq[letter] > bankFreq[letter]) {
+      return false;
+    }
+  }
+  return true;
+};
 export const scoreWord = (word) => {
   // Implement this method for wave 3
 };
