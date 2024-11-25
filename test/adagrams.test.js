@@ -122,7 +122,11 @@ describe("Adagrams", () => {
     it("returns a score of 0 if given an empty input", () => {
       // throw "Complete test";
       expectScores({
-        '': 0
+        '': 0,
+        ' ': 0,
+        // Checking for empty input of 7 spaces or more
+        '       ': 0,
+        '        ': 0
       });
       
 
