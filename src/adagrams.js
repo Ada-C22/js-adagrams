@@ -29,7 +29,7 @@ const letterPool = {
 
 export const drawLetters = () => {
   const allLetters = [];
-  
+
   // pushed all letters into on arr. 
   for (const [letter, count] of Object.entries(letterPool)) {
     for (let i = 0; i < count; i++) {
@@ -122,5 +122,26 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let bestWord = '';
+  let bestScore = 0;
+
+  for (const word of words) {
+    let tempScore = scoreWord(word);
+    //let tempWord = word;
+    if (tempScore > bestScore) {
+      bestScore = tempScore;
+      bestWord = word;
+    } else if (tempScore === bestScore) {
+      // tie-breaking condition
+      const isCurrentWordBetter = 
+        (bestWord.length !== 10 && word.length === 10) || //prefer 10 letter word
+        (word.length < bestWord.length && bestWord.length !== 10); // prefer shorter word
+      
+      // update word
+      if (isCurrentWordBetter) {
+        bestWord = word;
+      }
+    }
+  }
+  return { word: bestWord, score: bestScore };
 };
