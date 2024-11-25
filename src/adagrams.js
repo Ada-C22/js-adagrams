@@ -122,4 +122,32 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  const wordScore = {};
+  for (const word of words) {
+    const score = scoreWord(word);
+    wordScore[word] = score;
+  }
+
+  const maxScore = Math.max(...Object.values(wordScore));
+  
+  const candidates = []
+  for (const [word, score] of Object.entries(wordScore)) {
+    if (score === maxScore) {
+      candidates.push(word);
+    }
+  }
+  
+  const minLength = Math.min(...candidates.map(word => word.length));
+
+  let currentWinner = '';
+  for (const word of candidates) {
+    if (word.length === 10) {
+      currentWinner = word;
+      break;
+    }
+    if (word.length === minLength && !currentWinner) {
+      currentWinner = word;
+    }
+  }
+  return { word: currentWinner, score: maxScore };
 };
