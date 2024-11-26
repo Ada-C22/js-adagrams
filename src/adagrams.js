@@ -51,8 +51,25 @@ export const drawLetters = () => {
 };
 
 
-            // Implement this method for wave 2
+                                                // Implement this method for wave 2
   export const usesAvailableLetters = (input, lettersInHand) => {
+    // Step 1: Create a copy of lettersInHand to avoid modifying the original array
+  const handCopy = [...lettersInHand];
+
+  // Step 2: Iterate over each letter in the input
+  for (const letter of input) {
+    const index = handCopy.indexOf(letter); // Find the index of the letter in the hand copy
+    if (index === -1) {
+      // If the letter is not found, return false
+      return false;
+    } else {
+      // If the letter is found, remove it from the hand copy
+      handCopy.splice(index, 1);
+    }
+  }
+
+  // Step 3: If all letters in the input were found, return true
+  return true;
     
 };
 
