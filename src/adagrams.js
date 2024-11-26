@@ -32,17 +32,16 @@ export const LETTER_POOL = {
 
 
 
-/********* Helper function ****************/
+/*********** Helper Function ****************/
 export let letterArr = () => {
   let allLetters = [];
   for (const [letter, freq] of Object.entries(LETTER_POOL)){
     let currentLetterArr = new Array(freq).fill(letter);
-    // Spread syntax - could also use the concat() method
+    // Spread syntax ...
     allLetters.push(...currentLetterArr);
   }
   return allLetters;
 };
-
 
 export const drawLetters = () => {
   // Implement this method for wave 1
@@ -63,33 +62,22 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
 
-  // for (let i = 0; i < input.length; i++) {
-  //   let letterIdx = lettersInHand.indexOf(input[i])
-  //   if (letterIdx == -1){
-  //     return false;
-  //   }
-  //   else {
-  //     lettersInHand.splice(letterIdx, 1);
-  //   }
-  // }
-  // return true;
-
-  const letterCheck = lettersInHand.includes(input[input.length-1]);
-  const idx = lettersInHand.indexOf(input[input.length-1]);
+  const lastLetter = input.length-1;
+  const letterCheck = lettersInHand.includes(input[lastLetter]);
+  const idx = lettersInHand.indexOf(input[lastLetter]);
 
   if (!letterCheck) {
     return false;
   }
 
-  else if (letterCheck && input.length != 1) {
-
-    lettersInHand.splice(idx, 1);
-    return usesAvailableLetters(input.slice(0, input.length - 1), lettersInHand);
-  }
-
   else if (letterCheck && input.length == 1) {
     lettersInHand.splice(idx, 1);
     return true;
+  }
+
+  else if (letterCheck && input.length != 1) {
+    lettersInHand.splice(idx, 1);
+    return usesAvailableLetters(input.slice(0, lastLetter), lettersInHand);
   }
 };
 
@@ -137,11 +125,12 @@ export const scoreWord = (word) => {
   }
 
   for (let i = 0; i < word.length; i++){
-    if (word[i] == ' '){
+   let letter = word[i].toUpperCase();
+    if (letter == ' '){
       return 0;
     }
-    else if (scoreChart[word[i].toUpperCase()]){
-      score += scoreChart[word[i].toUpperCase()];
+    else if (scoreChart[letter]){
+      score += scoreChart[letter];
     }
   }
   return score;
@@ -150,11 +139,26 @@ export const scoreWord = (word) => {
 
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
 
-  // let current_letter = 0;
-
+  let currentHiScore = scoreWord(words[0]);
+  let currentWinner = words[0];
   
+  for (let i = 1; i < words.length; i++) {
+    const currentScore = scoreWord(words[i]);
+    const word = words[i];
 
-  
+    // Short circuiting the tie-break
+    if (currentHiScore == currentScore && currentWinner.length < 10 && ((word.length < 10 && (currentWinner.length > word.length)) || word.length == 10)){
+      currentHiScore = currentScore;
+      currentWinner = word;
+    }
+
+    else if (currentScore > currentHiScore){
+      currentHiScore = currentScore;
+      currentWinner = word;
+    }
+  }
+
+  return {word: currentWinner, score: currentHiScore};
+
 };
