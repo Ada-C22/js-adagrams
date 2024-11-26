@@ -46,8 +46,9 @@ export const drawLetters = () => {
 
 
 export const usesAvailableLetters = (input, lettersInHand) => {
+  const upperInput = input.toUpperCase()
   const copyLettersInHand = [...lettersInHand]
-  for (const char of input){
+  for (const char of upperInput){
     const index = copyLettersInHand.indexOf(char);
     if (index === -1) {
       return false;
