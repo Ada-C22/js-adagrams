@@ -120,12 +120,12 @@ export const scoreWord = (word) => {
     return 0;
   }
 
-  else if (bonus.includes(word.length)) {
+  if (bonus.includes(word.length)) {
     score += 8;
   }
 
-  for (let i = 0; i < word.length; i++){
-   let letter = word[i].toUpperCase();
+  for (let letter of word){
+   letter = letter.toUpperCase();
     if (letter == ' '){
       return 0;
     }
@@ -148,7 +148,7 @@ export const highestScoreFrom = (words) => {
     const word = words[i];
 
     // Short circuiting the tie-break
-    if (currentHiScore == currentScore && currentWinner.length < 10 && ((word.length < 10 && (currentWinner.length > word.length)) || word.length == 10)){
+    if (currentHiScore === currentScore && currentWinner.length < 10 && ((word.length === 10 || word.length < 10 && (currentWinner.length > word.length)) )){
       currentHiScore = currentScore;
       currentWinner = word;
     }
