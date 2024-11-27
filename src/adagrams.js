@@ -46,16 +46,27 @@ export const drawLetters = () => {
         if (quantity > 0) {
           hand.push(letter);
           letterAndQuantity[letter] -= 1;
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
 
   return hand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const copyLIH = [...lettersInHand];
+  const upperInput = input.toUpperCase();
+
+  for (let i = 0; i < upperInput.length; i++) {
+    let letter = upperInput[i]
+    if (copyLIH.includes(letter)) {
+      copyLIH.splice(copyLIH.indexOf(letter), 1);
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
