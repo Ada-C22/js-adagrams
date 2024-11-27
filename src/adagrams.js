@@ -97,4 +97,27 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
+  let winningWord = null;
+  let highScore = 0;
+
+  for (let word of words) {
+    const score = scoreWord(word);
+
+    if (score > highScore) {
+      highScore = score;
+      winningWord = word;
+    } else if (score === highScore) {
+      if (
+        word.length === 10 && winningWord.length !== 10 || 
+        word.length < winningWord.length && winningWord.length !== 10 || 
+        word === winningWord 
+      ) {
+        winningWord = word;
+      }
+    }
+  }
+
+  return { word: winningWord, score: highScore };
 };
+
+
