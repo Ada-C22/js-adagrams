@@ -65,22 +65,14 @@ export const drawLetters = () => {
     }
   }
   const hand = [];
-  const letterDrawCount = {};
 
   while (hand.length < 10) {
     const letterIndex = Math.floor(Math.random() * letters.length);
     const randomLetter = letters[letterIndex];
 
-    if (!hand.includes(randomLetter)) {
-      letterDrawCount[randomLetter] = 0;
-    }
+    hand.push(randomLetter);
 
-    if (letterDrawCount[randomLetter] < letterPool[randomLetter]) {
-      hand.push(randomLetter);
-      letterDrawCount[randomLetter] += 1;
-    } else {
-      console.log(`${randomLetter} has already been drawn ${letterDrawCount[randomLetter]} times.`);
-    }
+    letters.splice(letterIndex, 1);
   }
   return hand;  
 };
@@ -116,9 +108,8 @@ export const scoreWord = (word) => {
   return totalScore;
 };
 
-//words = ['love', 'act, 'beatiful', 'aaaaaaaaaa']
 export const highestScoreFrom = (words) => {
-  //initialize empty object to store word and score
+  
   let bestWord = '';
   let bestScore = 0;
 
