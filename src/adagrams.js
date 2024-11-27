@@ -27,6 +27,16 @@ const LETTER_POOL = {
   Z: 1,
 };
 
+const SCORE_CHART = {
+  1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
+  2: ['D', 'G'],
+  3: ['B', 'C', 'M', 'P'],
+  4: ['F', 'H', 'V', 'W', 'Y'],
+  5: ['K'],
+  8: ['J', 'X'],
+  10: ['Q', 'Z'],
+};
+
 export const drawLetters = () => {
   const hand = [];
   const copyPool = {};
@@ -46,10 +56,10 @@ export const drawLetters = () => {
         if (quantity > 0) {
           hand.push(letter);
           letterAndQuantity[letter] -= 1;
-        };
-      };
-    };
-  };
+        }
+      }
+    }
+  }
 
   return hand;
 };
@@ -59,7 +69,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   const upperInput = input.toUpperCase();
 
   for (let i = 0; i < upperInput.length; i++) {
-    let letter = upperInput[i]
+    let letter = upperInput[i];
     if (copyLIH.includes(letter)) {
       copyLIH.splice(copyLIH.indexOf(letter), 1);
     } else {
@@ -70,9 +80,21 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  const upperWord = word.toUpperCase();
+  let totalScore = 0;
+
+  if (upperWord.length >= 7 && upperWord.length <= 10) {
+    totalScore += 8;
+  }
+  for (let letter of upperWord) {
+    for (const [score, letters] of Object.entries(SCORE_CHART)) {
+      if (letters.includes(letter)) {
+        totalScore += parseInt(score); 
+      }
+    }
+  }
+  return totalScore;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
 };
