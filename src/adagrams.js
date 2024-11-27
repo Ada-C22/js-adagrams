@@ -1,8 +1,7 @@
 export const drawLetters = () => {
 	// Implement this method for wave 1
 	const letterPool =
-	{
-		'A': 9,
+	{	'A': 9,
 		'B': 2,
 		'C': 2,
 		'D': 4,
@@ -29,8 +28,6 @@ export const drawLetters = () => {
 		'Y': 2,
 		'Z': 1
 	}
-
-
 	const listLetters = [];
 	while (listLetters.length != 10) {
 		let letters = Object.keys(letterPool);
@@ -42,10 +39,8 @@ export const drawLetters = () => {
 			listLetters.push(randomLetter);
 		}
 	}
-
 	return listLetters
 }
-
 
 export const usesAvailableLetters = (input, lettersInHand) => {
 	// Implement this method for wave 2
@@ -61,6 +56,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 	}
 	return true;
 }
+
 export const scoreWord = (word) => {
 	// Implement this method for wave 3
 	const score = {
@@ -106,7 +102,6 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
 	// Implement this method for wave 4
-
 	if (words.length === 0) {
 		return ['', 0]
 	}
@@ -125,10 +120,7 @@ export const highestScoreFrom = (words) => {
 			} else if (word.length < highestWord.length) {
 				highestWord = word;
 			}
-
 		}
-
 	}
 	return  {'score': highestScore,  'word' : highestWord}
-
 }
