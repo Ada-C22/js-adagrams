@@ -99,13 +99,15 @@ export const highestScoreFrom = (words) => {
     if (score > bestScore) {
       bestWord = word;
       bestScore = score;
+    } else if (score < bestScore) {
+      null;
     } else if (bestWord.length === 10) {
       break;
     } else if (word.length === 10 || word.length < bestWord.length) {
       bestWord = word;
       bestScore = score;
     };
-  } 
-  let result = {score: {bestScore}, word : bestWord};
+  }; 
+  let result = {score: bestScore, word : bestWord};
   return result;
 };
