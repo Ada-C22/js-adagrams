@@ -5,21 +5,19 @@ const letterPool = {
   'V': 2, 'W': 2, 'X': 1, 'Y': 2, 'Z': 1
 };  
   
-  //Map of points 
-  const letterValue = new Map([
-    [['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'], 1],
-    [['D', 'G'], 2],
-    [['B', 'C', 'M', 'P'], 3],
-    [['F', 'H', 'V', 'W', 'Y'], 4],
-    [['K'], 5],
-    [['J', 'X'], 8],
-    [['Q', 'Z'], 10]
-  ]);
+const letterValue = new Map([
+  [['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'], 1],
+  [['D', 'G'], 2],
+  [['B', 'C', 'M', 'P'], 3],
+  [['F', 'H', 'V', 'W', 'Y'], 4],
+  [['K'], 5],
+  [['J', 'X'], 8],
+  [['Q', 'Z'], 10]
+]);
 
 
 export const drawLetters = () => {
 
-// Create a list of letters based on the pool
 let lettersList = [];
 for (const [letter, count] of Object.entries(letterPool)) {
     for (let i = 0; i < count; i++) {
@@ -27,14 +25,11 @@ for (const [letter, count] of Object.entries(letterPool)) {
     }
 }
 
-// Generate a hand of 10 random letters
 let hand = [];
 let temporaryLettersList = [...lettersList];
 
 for (let i = 0; i < 10; i++) {
     const randomIndex = Math.floor(Math.random() * temporaryLettersList.length);
-
-    // Remove the letter from the list
     const randomLetter = temporaryLettersList.splice(randomIndex, 1)[0];
     hand.push(randomLetter);
 }
@@ -52,15 +47,11 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     const index = lettersInHand.indexOf(letter);
     lettersInHand.splice(index, 1); 
   }
-
   return true;
 };
 
 
-
 export const scoreWord = (word) => {
-
-
   if (word.length === 0){
     return 0;
   }
@@ -81,6 +72,8 @@ export const scoreWord = (word) => {
   }
   return totalScore 
 };
+
+
 export const highestScoreFrom = (words) => {
 
   if (words.length === 0) {
