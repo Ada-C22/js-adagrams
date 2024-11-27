@@ -1,4 +1,4 @@
-export const numOfLetterTiles = 10;
+export const maxLetters = 10;
 export const minWordLengthForBonus = 7;
 export const bonusPoints = 8;
 

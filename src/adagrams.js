@@ -1,5 +1,5 @@
 import {
-  numOfLetterTiles,
+  maxLetters,
   minWordLengthForBonus,
   bonusPoints,
   letterPool,
@@ -15,7 +15,7 @@ export const drawLetters = () => {
   }
   
   const lettersDrawn = [];
-  for (let i = 0; i < numOfLetterTiles; i++) {
+  for (let i = 0; i < maxLetters; i++) {
     const randomNumber = Math.floor(Math.random() * lettersAvailable.length);
     lettersDrawn.push(lettersAvailable[randomNumber]);
     lettersAvailable.splice(randomNumber, 1);
@@ -42,29 +42,27 @@ export const scoreWord = (word) => {
     score += scoreChart[letter];
   }
   
-  if (word.length >= minWordLengthForBonus && word.length <= numOfLetterTiles) {
+  if (word.length >= minWordLengthForBonus && word.length <= maxLetters) {
     score += bonusPoints;
   }
   return score;
 };
 
 export const highestScoreFrom = (words) => {
-  let highestScore = 0;
-  let highestWord = '';
+  const winner = {
+    'word': '',
+    'score': 0
+  }
   for (const word of words) {
     let score = scoreWord(word);
-    if (score > highestScore) {
-      highestScore = score;
-      highestWord = word;
-    } else if (score === highestScore) {
-      if (highestWord.length !== numOfLetterTiles && (word.length < highestWord.length || word.length === numOfLetterTiles)) {
-        highestWord = word;
+    if (score > winner['score']) {
+      winner['word'] = word;
+      winner['score'] = score;
+    } else if (score === winner['score']) {
+      if (winner['word'].length !== maxLetters && (word.length < winner['word'].length || word.length === maxLetters)) {
+        winner['word'] = word;
       }
     }
   }
-  
-  return {
-    'word': highestWord, 
-    'score': highestScore
-  };
+  return winner;
 };
