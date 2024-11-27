@@ -5,7 +5,7 @@
 - Writing Javascript functions with correct syntax, including:
   - only use `const` and `let` variables
   - use semi-colons where needed
-  - name variables and functions with camelCase
+  - name variables and functions with camelCase÷
 - Practicing good git hygiene:
   - make at least three small commits with meaningful commit messages
 - Practicing TDD with JavaScript and the Jest testing framework
@@ -18,7 +18,7 @@ A test suite and sample game project is provided in order to practice TDD and ve
 
 Note there are a handful of incomplete tests that currently throw exceptions. You should complete these tests and remove the exception.
 
-## Getting Started
+## Getting ∏
 
 After forking and cloning this repo you should `cd` to the project directory and run:
 
