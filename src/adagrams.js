@@ -70,7 +70,7 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  const wordUpperCase = input.toLowerCase();
+  const wordUpperCase = input.toUpperCase();
   const temporaryLetterBank = [...lettersInHand];
 
   for (const letter of wordUpperCase) {
@@ -84,6 +84,18 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  const inputUpperCase = word.toUpperCase();
+  let score = 0;
+
+  for (const letter of inputUpperCase) {
+    if (SCORE_CHART[letter]) {
+      score += SCORE_CHART[letter];
+    }
+  }
+  if (inputUpperCase.length >= 7) {
+    score += 8;
+  } 
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
