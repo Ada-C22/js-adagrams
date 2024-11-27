@@ -68,12 +68,11 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   const letterBankCopy = lettersInHand.slice()
 
     for (let letter of word) {
-      if (letter in letterBankCopy) {
+      if (letterBankCopy.includes(letter)) {
         letterList.push(letter);
         letterBankCopy.splice(letter, 1)
       } else return false;
-    }; 
-    return true;
+    } return true;
 };
 
 export const scoreWord = (word) => {
@@ -87,9 +86,26 @@ export const scoreWord = (word) => {
   if (word.length > 6) {
     score = score + 8;
   }; 
+  console.log(score);
   return score;
 };
 
-// export const highestScoreFrom = (words) => {
-//   // Implement this method for wave 4
-// };
+export const highestScoreFrom = (words) => {
+  let bestWord = '';
+  let bestScore = 0;
+
+  for (let word of words) {
+    let score = scoreWord(word);
+    if (score > bestScore) {
+      bestWord = word;
+      bestScore = score;
+    } else if (bestWord.length === 10) {
+      break;
+    } else if (word.length === 10 || word.length < bestWord.length) {
+      bestWord = word;
+      bestScore = score;
+    };
+  } 
+  let result = {score: {bestScore}, word : bestWord};
+  return result;
+};
