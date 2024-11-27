@@ -101,25 +101,11 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
-/*
-  score = 0
-
-    word_uppercase = word.upper()
-    for letter in word_uppercase:
-        for letters, points in LETTER_POINTS.items():
-            if letter in letters:
-                score += points
-    
-    if len(word) in range(7,11):
-        score += 8
-
-    return score
-*/
-
 export const scoreWord = (word) => {
   if (!word) {
-    return 0;
+    return 0;  
   }
+
   let score = 0;
 
   for (const letter of word.toUpperCase()) {
@@ -133,5 +119,27 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let highestWord = '';
+  let highestScore = 0;
+
+  for (const word of words) {
+    let currentScore = scoreWord(word);
+
+    if (currentScore > highestScore) {
+      highestWord = word;
+      highestScore = currentScore;
+    } else if (currentScore === highestScore) {
+      if (word.length === highestWord.length) {
+        continue;
+      } else if (highestWord.length === 10) {
+        continue;
+      } else if (word.length == 10) {
+        highestWord = word;
+      } else if (word.length < highestWord.length) {
+        highestWord = word;
+      }
+    }
+  }
+
+  return {word: highestWord, score: highestScore};
 };
