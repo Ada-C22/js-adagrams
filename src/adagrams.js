@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import { letterPool, scoreChart } from "./constants.js";
+import { letterPool, scoreChart } from './constants.js';
 
 
 const createLetterPoolList = (letterPoolDict) => {
@@ -69,6 +69,34 @@ export const scoreWord = (word) => {
   return score;
 };
 
-export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+const findHighestScore = (words) => {
+  const max = words.reduce((prev, current) => {
+    if (scoreWord(current) > scoreWord(prev)) {
+      return current;
+    } else if (scoreWord(current) === scoreWord(prev)) {
+      if (current.length === prev.length) {
+        return prev;
+      } else if (current.length === 10) {
+        return current;
+      } else if (prev.length === 10) {
+        return prev;
+      } else if (current.length < prev.length) {
+        return current;
+      }
+    }
+    return prev;
+  }, words[0]);
+
+  return max;
 };
+
+export const highestScoreFrom = (words) => {
+  const highestScoreObj = {};
+  const highestScore = findHighestScore(words);
+
+  highestScoreObj["word"] = highestScore;
+  highestScoreObj["score"] = scoreWord(highestScore);
+
+  return highestScoreObj;
+};
+
