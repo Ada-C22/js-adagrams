@@ -29,23 +29,20 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-
 const createLetterPoolList = (letterPool) => {
   let letterPoolList = [];
-  
+
   for (const [letter, freq] of Object.entries(letterPool)) {
     for (let i = 0; i < freq; i++) {
       letterPoolList.push(letter);
     }
   }
   return letterPoolList;
-}
-
+};
 
 const getRandomNumber = (max) => {
   return Math.floor(Math.random() * (max + 1));
 };
-
 
 export const drawLetters = () => {
   const letterPoolList = createLetterPoolList(LETTER_POOL);
@@ -64,32 +61,32 @@ export const drawLetters = () => {
 
 const removeLetter = (list, index) => {
   list.splice(index, 1);
-}
+};
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   const inputLowerCase = input.toLowerCase();
   const temporaryLetterBank = [...lettersInHand];
-  
+
   for (const letter of inputLowerCase) {
     if (!(letter in temporaryLetterBank)) {
       return false;
-
-    temporaryLetterBank.splice(letter); 
-}
+    }
+    temporaryLetterBank.splice(letter, 1);
+    
   }
 
-    //   casefold_word = word.casefold()
-    // temporary_letter_bank =  [letter.casefold() for letter in letter_bank]
+  //   casefold_word = word.casefold()
+  // temporary_letter_bank =  [letter.casefold() for letter in letter_bank]
 
-    // for letter in casefold_word: 
+  // for letter in casefold_word:
 
-    //     if letter not in temporary_letter_bank:  
-    //         return False
+  //     if letter not in temporary_letter_bank:
+  //         return False
 
-    //     temporary_letter_bank.remove(letter) 
+  //     temporary_letter_bank.remove(letter)
 
-    // return True
+  // return True
 };
 
 export const scoreWord = (word) => {
