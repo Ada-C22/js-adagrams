@@ -59,7 +59,8 @@ export const drawLetters = () => {
   return drawnLetters;
 };
 
-const removeLetter = (list, index) => {
+const removeLetter = (list, letter) => {
+  const index = list.indexOf(letter);
   list.splice(index, 1);
 };
 
@@ -68,13 +69,14 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   const inputLowerCase = input.toLowerCase();
   const temporaryLetterBank = [...lettersInHand];
 
-  for (const letter of inputLowerCase) {
-    if (!(letter in temporaryLetterBank)) {
+  for (const letter of wordUpperCase) {
+    if (!temporaryLetterBank.includes(letter)) {
       return false;
     }
-    temporaryLetterBank.splice(letter, 1);
-    
+    removeLetter(temporaryLetterBank, letter);
   }
+  return true;
+};
 
   //   casefold_word = word.casefold()
   // temporary_letter_bank =  [letter.casefold() for letter in letter_bank]
