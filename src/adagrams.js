@@ -66,7 +66,7 @@ const removeLetter = (list, letter) => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  const inputLowerCase = input.toLowerCase();
+  const wordUpperCase = input.toLowerCase();
   const temporaryLetterBank = [...lettersInHand];
 
   for (const letter of wordUpperCase) {
@@ -76,19 +76,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     removeLetter(temporaryLetterBank, letter);
   }
   return true;
-};
-
-  //   casefold_word = word.casefold()
-  // temporary_letter_bank =  [letter.casefold() for letter in letter_bank]
-
-  // for letter in casefold_word:
-
-  //     if letter not in temporary_letter_bank:
-  //         return False
-
-  //     temporary_letter_bank.remove(letter)
-
-  // return True
 };
 
 export const scoreWord = (word) => {
