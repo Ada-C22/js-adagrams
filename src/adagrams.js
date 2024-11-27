@@ -83,39 +83,30 @@ export const drawLetters = () => {
   }
   return hand;
 };
-
-const createMaxLetterCount = (lettersInHand) =>{
-  const maxLetterCount = {};
-
-  for (let letter of lettersInHand){
-    if (letter in maxLetterCount){
-      maxLetterCount[letter] += 1;
-    }else{
-      maxLetterCount[letter] = 1;
-    }
-  }
-  return maxLetterCount;
-};
-
+  
 export const usesAvailableLetters = (input, lettersInHand) => {
   const inputLower = input.toUpperCase();
-  const maxLetterCount = createMaxLetterCount(lettersInHand);
+  const copy = [...lettersInHand] // I not sure how lettersInHand is used in the program as a whole, so I made a copy
 
   for (let letter of inputLower){
-    if (!(lettersInHand.includes(letter))){
+    if (copy.includes(letter)){
+      let idx = copy.indexOf(letter);
+      copy.splice(idx,1);
+    } else {
       return false;
-    }else{
-      if(maxLetterCount[letter] > 0){
-        maxLetterCount[letter] -= 1;
-      }else{
-        return false;
-      }
     }
   }
   return true;
 };
 
+  
+
+
+
 export const scoreWord = (word) => {
+  if (!word.trim()) {
+    return 0
+  }
   word = word.toUpperCase();
   let score = 0;
   for (let letter of word){
