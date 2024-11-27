@@ -1,3 +1,7 @@
+export const numOfLetterTiles = 10;
+
+export const bonusPoints = 8;
+
 export const letterPool = {
   'A': 9,  
   'B': 2, 

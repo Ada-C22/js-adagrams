@@ -1,4 +1,6 @@
 import {
+  numOfLetterTiles,
+  bonusPoints, 
   letterPool,
   scoreChart
 } from './constants';
@@ -11,9 +13,8 @@ export const drawLetters = () => {
     }
   }
   
-  const numLettersTile = 10;
   const lettersDrawn = [];
-  for (let i = 0; i < numLettersTile; i++) {
+  for (let i = 0; i < numOfLetterTiles; i++) {
     const randomNumber = Math.floor(Math.random() * lettersAvailable.length);
     lettersDrawn.push(lettersAvailable[randomNumber]);
     lettersAvailable.splice(randomNumber, 1);
@@ -24,7 +25,7 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {  
   const letterBank = {};
   for (const letter of lettersInHand) {
-    if (letterBank[letter] === undefined) {
+    if (!letterBank[letter]) {
       letterBank[letter] = 1;
     } else {
       letterBank[letter]++;
@@ -32,7 +33,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   }
   
   for (const letter of input.toUpperCase()) {
-    if (letterBank[letter] === undefined || letterBank[letter] === 0) {
+    if (!letterBank[letter]) {
       return false;
     } else {
       letterBank[letter]--;
@@ -48,7 +49,7 @@ export const scoreWord = (word) => {
   }
   
   if (word.length >= 7 && word.length <= 10) {
-    score += 8;
+    score += bonusPoints;
   }
   return score;
 };
