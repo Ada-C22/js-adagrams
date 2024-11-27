@@ -56,22 +56,30 @@ const SCORE_CHART = {
 }
 
 
-const letters = [
+const LETTERS = [
   'A', 'B', 'C', 'D', 'E', 'F',
   'G', 'H', 'I', 'J', 'K', 'L',
   'M', 'N', 'O', 'P', 'Q', 'R',
   'S', 'T', 'U', 'V', 'W', 'X',
   'Y', 'Z'];
 
-const weights = [
+const WEIGHTS = [
   9, 2, 2, 4, 12, 2, 3, 2,
   9, 1, 1, 4,  2, 6, 8, 2,
   1, 6, 4, 6,  4, 2, 2, 1,
   2, 1
 ];
 
+const HAND_SIZE = 10;
+
+const MIN_LEN_FOR_BONUS = 7;
+
+const BONUS_POINTS = 8; 
+
+const TIE_BREAKER_WORD_LEN = 10;
+
 let totalWeight=0;
-for (const weight of weights) {
+for (const weight of WEIGHTS) {
   totalWeight += weight;
 }
 
@@ -81,22 +89,21 @@ const weightedRandomLetter = () => {
   const randomNum = Math.random() * totalWeight; 
   
   let currentWeight = 0;
-  for (let i = 0; i < letters.length; i++) {
-    currentWeight += weights[i];
+  for (let i = 0; i < LETTERS.length; i++) {
+    currentWeight += WEIGHTS[i];
     if (currentWeight >= randomNum) {
-      return letters[i]
+      return LETTERS[i]
     }
   }
 };
 
 
 export const drawLetters = () => {
-  // Implement this method for wave 1
   const drawnLetters = []
   let i=0;
   const letterFreq = {};
 
-  while( i < 10){
+  while( i < HAND_SIZE){
     const randomLetter = weightedRandomLetter()
       if (randomLetter in letterFreq) {
         letterFreq[randomLetter] += 1;
@@ -112,16 +119,15 @@ return drawnLetters
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
- for (const letter of input){
-  if (lettersInHand.includes(letter)){
-    const index = lettersInHand.indexOf(letter);
-    if (index !== -1) {
-      lettersInHand.splice(index, 1);
-    }
-  } else {
+  const lettersInHandCopy = Array.from(lettersInHand);
+  for (const letter of input){
+  if (lettersInHandCopy.includes(letter) === false){
     return false;
+  } else {
+    const index = lettersInHandCopy.indexOf(letter);
+    lettersInHandCopy.splice(index, 1);
   }
-  }
+}
   return true
 };
 
@@ -133,15 +139,57 @@ export const scoreWord = (word) => {
     score += SCORE_CHART[letter];
   }
 
-  if (word.length >= 7){
-    score += 8;
+  if (word.length >= MIN_LEN_FOR_BONUS){
+    score += BONUS_POINTS;
   }
 
   return score;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  
+  const possibleWinners = getPossibleWinners(words);
+
+  let winner = possibleWinners[0];
+
+  if (possibleWinners.length === 1) {
+    ;
+  } else {
+    winner = tieBreaker(possibleWinners);
+  }
+  return winner;
 };
 
-console.log(scoreWord(''))
+const getPossibleWinners = (words) => {
+  const wordAndScores = new Map();
+
+  for (const word of words){
+    wordAndScores.set(word, scoreWord(word))
+  }
+
+  const highestScore = Math.max(...wordAndScores.values());
+
+  const possibleWinners = [];
+
+  for (const [word, score] of wordAndScores) {
+    if (score === highestScore) {
+      possibleWinners.push({word, score});
+    }
+  }
+  return possibleWinners;
+}
+
+const tieBreaker = possibleWinners => {
+  let fewestLetters = possibleWinners[0].word.length;
+  let winner = possibleWinners[0];
+
+  for (const possibleWinner of possibleWinners){
+    if (possibleWinner.word.length === TIE_BREAKER_WORD_LEN){
+      return possibleWinner;
+    } else if (possibleWinner.word.length < fewestLetters){
+      fewestLetters = possibleWinner.word.length;
+      winner = possibleWinner;
+    }
+  }
+  return winner; 
+}
