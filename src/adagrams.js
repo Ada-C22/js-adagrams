@@ -74,7 +74,6 @@ export const drawLetters = () => {
   const hand = [];
   const weightedLetterPool = createWeightedLetterPool()
 
-
   while (hand.length < HAND_SIZE){
     let randomIdx = Math.floor(Math.random()*weightedLetterPool.length);
     let randomLetter = weightedLetterPool[randomIdx];
@@ -86,7 +85,7 @@ export const drawLetters = () => {
   
 export const usesAvailableLetters = (input, lettersInHand) => {
   const inputLower = input.toUpperCase();
-  const copy = [...lettersInHand] // I not sure how lettersInHand is used in the program as a whole, so I made a copy
+  const copy = [...lettersInHand]; // I not sure how lettersInHand is used in the program as a whole, so I made a copy
 
   for (let letter of inputLower){
     if (copy.includes(letter)){
@@ -105,7 +104,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   if (!word.trim()) {
-    return 0
+    return 0;
   }
   word = word.toUpperCase();
   let score = 0;
@@ -138,7 +137,7 @@ const getHighScoreWords = (words, maxScore) => {
 
 export const highestScoreFrom = (words) => {
   let maxScore = getMaxScore(words);
-  let highScoreWords = getHighScoreWords(words, maxScore)
+  let highScoreWords = getHighScoreWords(words, maxScore);
   
   let winningWord = highScoreWords[0];
   
