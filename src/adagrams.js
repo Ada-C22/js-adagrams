@@ -61,8 +61,8 @@ export const drawLetters = () => {
   for (const [letter, quantity] of Object.entries(letterPool)) {
     for (let i = 0; i < quantity; i++) {
       lettersAvailable.push(letter);
-    };
-  };
+    }
+  }
   
   const numLettersTile = 10;
   const lettersDrawn = [];
@@ -70,7 +70,7 @@ export const drawLetters = () => {
     const randomNumber = Math.floor(Math.random() * lettersAvailable.length);
     lettersDrawn.push(lettersAvailable[randomNumber]);
     lettersAvailable.splice(randomNumber, 1);
-  };
+  }
   return lettersDrawn;
 };
 
@@ -82,15 +82,15 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     } else {
       letterBank[letter]++;
     }
-  };
-
+  }
+  
   for (const letter of input.toUpperCase()) {
     if (letterBank[letter] === undefined || letterBank[letter] === 0) {
       return false;
     } else {
       letterBank[letter]--;
     }
-  };
+  }
   return true;
 };
 
@@ -98,8 +98,8 @@ export const scoreWord = (word) => {
   let score = 0;
   for (const letter of word.toUpperCase()) {
     score += scoreChart[letter];
-  };
-
+  }
+  
   if (word.length >= 7 && word.length <= 10) {
     score += 8;
   }
@@ -115,14 +115,13 @@ export const highestScoreFrom = (words) => {
     if (score > highestScore) {
       highestScore = score;
       highestWord = word;
-    }
-    else if (score === highestScore) {
+    } else if (score === highestScore) {
       if (highestWord.length !== 10 && (word.length < highestWord.length || word.length === 10)) {
         highestWord = word;
       }
     }
-  };
-
+  }
+  
   return {
     'word': highestWord, 
     'score': highestScore
