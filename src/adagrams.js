@@ -1,5 +1,8 @@
 "use strict";
 
+import LETTERPOOL from 'constants';
+import SCORE_CHART from 'constants';
+
 const LETTER_POOL = {
   A: 9,
   B: 2,
@@ -44,6 +47,11 @@ const getRandomNumber = (max) => {
   return Math.floor(Math.random() * (max + 1));
 };
 
+const removeLetter = (list, letter) => {
+  const index = list.indexOf(letter);
+  list.splice(index, 1);
+};
+
 export const drawLetters = () => {
   const letterPoolList = createLetterPoolList(LETTER_POOL);
 
@@ -53,16 +61,12 @@ export const drawLetters = () => {
     const letter = letterPoolList[randomIndex];
     drawnLetters.push(letter);
 
-    letterPoolList.splice(randomIndex, 1);
+    removeLetter(letterPoolList, letter);
   }
 
   return drawnLetters;
 };
 
-const removeLetter = (list, letter) => {
-  const index = list.indexOf(letter);
-  list.splice(index, 1);
-};
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
