@@ -25,20 +25,13 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {  
   const letterBank = {};
   for (const letter of lettersInHand) {
-    if (!letterBank[letter]) {
-      letterBank[letter] = 1;
-    } else {
-      letterBank[letter]++;
-    }
+    letterBank[letter] = (letterBank[letter] || 0) + 1;
   }
   
   for (const letter of input.toUpperCase()) {
-    if (!letterBank[letter]) {
-      return false;
-    } else {
-      letterBank[letter]--;
+    if (!letterBank[letter]) return false;
+    letterBank[letter]--;
     }
-  }
   return true;
 };
 
@@ -57,7 +50,6 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   let highestScore = 0;
   let highestWord = '';
-  
   for (const word of words) {
     let score = scoreWord(word);
     if (score > highestScore) {
