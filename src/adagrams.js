@@ -107,5 +107,45 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let bestWord = null;
+  let highestScore = 0;
+
+  for (const word of words) {
+    const score = scoreWord(word);
+
+    if (
+      score > highestScore ||
+      (score === highestScore &&
+        (word.length === 10 ||
+          (bestWord && word.length < bestWord.length && bestWord.length !== 10)))
+    ) {
+      highestScore = score;
+      bestWord = word;
+    }
+  }
+  const tiedWords = words.filter((word) => scoreWord(word) === highestScore);
+
+  if (tiedWords.length > 1) {
+    bestWord = tiedWords.reduce((best, word) => {
+      if (best === null) return word;
+
+      if (word.length === 10 && best.length !== 10) {
+        return word; 
+      }
+      if (best.length === 10 && word.length !== 10) {
+        return best; 
+      }
+      if (word.length < best.length) {
+        return word; 
+      }
+      if (word.length === best.length) {
+        return best; 
+      }
+      return best;
+    }, null);
+  }
+
+  return { word: bestWord, score: highestScore };
 };
+
+
