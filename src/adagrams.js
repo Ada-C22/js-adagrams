@@ -1,5 +1,4 @@
 export const drawLetters = () => {
-  // Implement this method for wave 1
   const letterPool = {
     'A': 9,  
     'B': 2, 
@@ -46,7 +45,6 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
   input = input.toUpperCase();
   
   const letterBank = {};
@@ -69,7 +67,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
   const scoreChart = {
     'A': 1, 
     'B': 3, 
@@ -110,7 +107,6 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
   let highestScore = 0;
   let highestWord = '';
   
