@@ -63,7 +63,6 @@ for (const [letter, freq] of Object.entries(letterPool)) {
     letterArray.push(letter);
   };
 }
-// console.log(letterArray)
 
 const hand = [];
 const letterArrayLen = letterArray.length;
@@ -120,8 +119,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
 
 
-export const scoreWord = (word) => {  
-  if (word.length === 0) return 0; 
+export const scoreWord = (word) => {   
   const wordUp = word.toUpperCase();
   let score =0;
   for (const letter of wordUp) {
