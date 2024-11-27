@@ -121,6 +121,9 @@ describe("Adagrams", () => {
 
     it("returns a score of 0 if given an empty input", () => {
       expect(scoreWord("")).toBe(0);
+      expect(scoreWord("   ")).toBe(0);
+      expect(scoreWord("         ")).toBe(0);
+    
   
     });
 
