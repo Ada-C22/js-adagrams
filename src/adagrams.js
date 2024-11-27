@@ -4,6 +4,7 @@ import { letterPool, scoreChart } from './constants.js';
 
 
 const createLetterPoolList = (letterPoolDict) => {
+  //Function has one parameter, a dictionary, and returns a list of letters.
   let letterPoolList = [];
 
   for (const [letter, freq] of Object.entries(letterPoolDict)) {
@@ -15,10 +16,12 @@ const createLetterPoolList = (letterPoolDict) => {
 };
 
 const getRandomNumber = (max) => {
+  //Function has one parameter, an integer named max, and returns random number between 0 and max
   return Math.floor(Math.random() * (max + 1));
 };
 
 const removeLetter = (list, letter) => {
+//Function has two parameters, a list and a letter, and returns a list with the letter removed
   const index = list.indexOf(letter);
   list.splice(index, 1);
 };
@@ -40,7 +43,7 @@ export const drawLetters = () => {
 
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  // Function checks if the input word uses available letters in the letterInHand list
   const wordUpperCase = input.toUpperCase();
   const temporaryLetterBank = [...lettersInHand];
 
@@ -54,7 +57,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  // Function scores the word
   const inputUpperCase = word.toUpperCase();
   let score = 0;
 
@@ -65,11 +68,12 @@ export const scoreWord = (word) => {
   }
   if (inputUpperCase.length >= 7) {
     score += 8;
-  } 
+  }
   return score;
 };
 
 const findHighestScore = (words) => {
+  //Function finds the max word score in the list
   const max = words.reduce((prev, current) => {
     if (scoreWord(current) > scoreWord(prev)) {
       return current;
@@ -91,6 +95,7 @@ const findHighestScore = (words) => {
 };
 
 export const highestScoreFrom = (words) => {
+  // Function return the max score and word as an object
   const highestScoreObj = {};
   const highestScore = findHighestScore(words);
 
