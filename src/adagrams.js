@@ -58,28 +58,25 @@ const letterPointValues = {
     'Z': 10
 };
 
+
 export const createLetterPool = () => {
   const listOfAllLetters = [];
+
   for (const [letter, letterFrequency] of Object.entries(letterPool)) {
     for (let i = 0; i < letterFrequency; i++) {
       listOfAllLetters.push(letter);
     }
   }
+
   return listOfAllLetters;
+
 };
 
 
-// def create_letter_pool():
-//     list_of_all_letters = []
-//     list_of_all_letters = [letter for letter, letter_frequency in LETTER_POOL.items() for _ in range(letter_frequency)]
-
-//     return list_of_all_letters
-
-
 export const drawLetters = () => {
-  // Implement this method for wave 1
   const handOfLettersList = [];
   const listOfAllLetters = createLetterPool();
+
   while (handOfLettersList.length < handSize) {
     const aRandomIndexThatAccessesRandomLetter = Math.floor(Math.random() * listOfAllLetters.length);
     const randomLetterChosen = listOfAllLetters[aRandomIndexThatAccessesRandomLetter];
@@ -91,24 +88,15 @@ export const drawLetters = () => {
 
 };
 
-// def draw_letters():
-//     hand_of_letters_list = []
-//     list_of_all_letters = create_letter_pool()
- 
-//     while len(hand_of_letters_list) < HAND_SIZE:
-//         a_random_index_that_accesses_random_letter = random.randint(0, len(list_of_all_letters) - 1)
-//         random_letter_chosen = list_of_all_letters[a_random_index_that_accesses_random_letter]
-//         hand_of_letters_list.append(random_letter_chosen)
-//         list_of_all_letters.remove(random_letter_chosen)
-         
-//     return hand_of_letters_list
 
 export const usesAvailableLetters = (word, handOfLettersList) => {
   const wordBankList = [...handOfLettersList];
 
   for (const letter of word.toUpperCase()) {
+
     if (!wordBankList.includes(letter)) {
       return false;
+
     } else {
       const index = wordBankList.indexOf(letter);
       wordBankList.splice(index, 1);
@@ -116,92 +104,56 @@ export const usesAvailableLetters = (word, handOfLettersList) => {
   }
 
   return true;
+
 };
-
-// def uses_available_letters(word, hand_of_letters_list):
-    // '''
-    // Parameters:
-    //     word (str): a word input by user
-    //     hand_of_letters_list (list): an list of drawn letters (strings) in a hand.
-    // Returns:
-    //     True: word_bank_list is only using letters available in hand_of_letters_list
-    //     False: word_bank_list is using letters or other things not included in hand_of_letters_list
-    // '''
-
-    // word_bank_list = []
-    // word_bank_list = [letter for letter in hand_of_letters_list]
-
-    // for letter in word.upper():
-    //     if letter not in word_bank_list:
-    //         return False
-    //     else:
-    //         if letter in word_bank_list:
-    //             word_bank_list.remove(letter)
-    // return True
 
 
 export const scoreWord = (word) => {
   if (!word) {
     return 0;
   }
-
   let totalScore = 0;
 
   for (const letter of word.toUpperCase()) {
-    totalScore += letterPointValues[letter] || 0;
+    totalScore += letterPointValues[letter];
   }
-
   if (word.length >= 7) {
     totalScore += 8;
   }
 
   return totalScore;
+
 };
 
 
-// def score_word(word):
-//     total_score = 0
+export const highestScoreFrom = (wordList) => {
+  let winningWord = null;
+  let winningScore = 0;
 
-//     for letter in word.upper():
-//         total_score += LETTER_POINT_VALUES[letter]
-//     if len(word) >= 7:
-//         total_score += 8
-//     return total_score
+  for (const word of wordList) {
+    const wordScore = scoreWord(word); 
 
+    if (winningWord === null) {
+      winningWord = word;
+      winningScore = wordScore;
+    } else if (wordScore > winningScore) {
+      winningWord = word;
+      winningScore = wordScore;
 
-// export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-// };
+    } else if (wordScore === winningScore) {
+      if (winningWord.length === 10) {
+        return { word: winningWord, score: winningScore }; 
+      }
+      if (word.length === 10) {
+        winningWord = word;
+        winningScore = wordScore;
+      } else if (word.length < winningWord.length) {
+        winningWord = word;
+        winningScore = wordScore;
+      }
+    }
+  }
 
-// def get_highest_word_score(word_list):
-//     winning_word = None 
-//     winning_score = 0
+  return { word: winningWord, score: winningScore };
 
-//     for word in word_list:
-//         word_score = score_word(word)
-
-//         if winning_word is None:
-//             winning_word = word
-//             winning_score = word_score
-//         elif word_score > winning_score:
-//             winning_word = word
-//             winning_score = word_score
-//         elif word_score == winning_score:
-//             if len(winning_word) == 10:
-//                 continue
-//             if len(word) == 10:
-//                 winning_word = word
-//                 winning_score = word_score
-//             elif len(word) < len(winning_word):
-//                 winning_word = word
-//                 winning_score = word_score
-
-//     return winning_word, winning_score
-
-
-
-
-
-/*
-
-*/
+};
