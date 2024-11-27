@@ -1,6 +1,7 @@
 import {
   numOfLetterTiles,
-  bonusPoints, 
+  minWordLengthForBonus,
+  bonusPoints,
   letterPool,
   scoreChart
 } from './constants';
@@ -41,7 +42,7 @@ export const scoreWord = (word) => {
     score += scoreChart[letter];
   }
   
-  if (word.length >= 7 && word.length <= 10) {
+  if (word.length >= minWordLengthForBonus && word.length <= numOfLetterTiles) {
     score += bonusPoints;
   }
   return score;
@@ -56,7 +57,7 @@ export const highestScoreFrom = (words) => {
       highestScore = score;
       highestWord = word;
     } else if (score === highestScore) {
-      if (highestWord.length !== 10 && (word.length < highestWord.length || word.length === 10)) {
+      if (highestWord.length !== numOfLetterTiles && (word.length < highestWord.length || word.length === numOfLetterTiles)) {
         highestWord = word;
       }
     }
