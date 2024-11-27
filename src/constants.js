@@ -1,5 +1,4 @@
 export const numOfLetterTiles = 10;
-
 export const bonusPoints = 8;
 
 export const letterPool = {
