@@ -32,23 +32,40 @@ export const LETTER_POOL = {
 
 
 
-/*********** Helper Function ****************/
+/*********** Helper Functions ****************/
 export let letterArr = () => {
   let allLetters = [];
   for (const [letter, freq] of Object.entries(LETTER_POOL)){
     let currentLetterArr = new Array(freq).fill(letter);
     // Spread syntax ...
     allLetters.push(...currentLetterArr);
+    
   }
   return allLetters;
 };
 
+
+
 export const drawLetters = () => {
   // Implement this method for wave 1
-  const currentLetterBank = letterArr();
+  let currentLetterBank = letterArr();
   const deck = [];
 
+  // SHUFFLE THE LIST OF ALL LETTERS - AKA shuffle the current letter bank
+  // Fisher-Yates Shuffle Algorithm
+  // Reference: https://www.tutorialspoint.com/what-is-fisher-yates-shuffle-in-javascript
+  
+  for (let index = currentLetterBank.length-1; index > 0; index--){
+    const randomIndex = Math.floor(Math.random() * (index+1));
+    
+    const temp = currentLetterBank[index];
+    currentLetterBank[index] = currentLetterBank[randomIndex];
+    currentLetterBank[randomIndex] = temp;
+  }
+
+
   while (deck.length < 10) {
+    // Randomly select an index from the shuffled list of all letters
     const randoIdx = Math.floor(Math.random() * currentLetterBank.length);
     const randoLetter = currentLetterBank[randoIdx];
     deck.push(randoLetter);
@@ -61,23 +78,25 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-
+  let newList = [...lettersInHand];
   const lastLetter = input.length-1;
-  const letterCheck = lettersInHand.includes(input[lastLetter]);
+  const letterCheck = newList.includes(input[lastLetter]);
   const idx = lettersInHand.indexOf(input[lastLetter]);
 
+  /* Base Cases */
   if (!letterCheck) {
     return false;
   }
 
   else if (letterCheck && input.length == 1) {
-    lettersInHand.splice(idx, 1);
+    newList.splice(idx, 1);
     return true;
   }
 
+  /* Recursive Case */
   else if (letterCheck && input.length != 1) {
-    lettersInHand.splice(idx, 1);
-    return usesAvailableLetters(input.slice(0, lastLetter), lettersInHand);
+    newList.splice(idx, 1);
+    return usesAvailableLetters(input.slice(0, lastLetter), newList);
   }
 };
 
@@ -120,9 +139,9 @@ export const scoreWord = (word) => {
     return 0;
   }
 
-  if (bonus.includes(word.length)) {
-    score += 8;
-  }
+  // if (bonus.includes(word.length)) {
+  //   score += 8;
+  // }
 
   for (let letter of word){
    letter = letter.toUpperCase();
@@ -133,7 +152,7 @@ export const scoreWord = (word) => {
       score += scoreChart[letter];
     }
   }
-  return score;
+  return (!bonus.includes(word.length))? score : score += 8;
 };
 
 
@@ -145,17 +164,17 @@ export const highestScoreFrom = (words) => {
   
   for (let i = 1; i < words.length; i++) {
     const currentScore = scoreWord(words[i]);
-    const word = words[i];
+    const currentWord = words[i];
 
     // Short circuiting the tie-break
-    if (currentHiScore === currentScore && currentWinner.length < 10 && ((word.length === 10 || word.length < 10 && (currentWinner.length > word.length)) )){
+    if (currentHiScore === currentScore && currentWinner.length < 10 && ((currentWord.length === 10 || currentWord.length < 10 && (currentWinner.length > currentWord.length)) )){
       currentHiScore = currentScore;
-      currentWinner = word;
+      currentWinner = currentWord;
     }
 
     else if (currentScore > currentHiScore){
       currentHiScore = currentScore;
-      currentWinner = word;
+      currentWinner = currentWord;
     }
   }
 
