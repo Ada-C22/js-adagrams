@@ -139,10 +139,6 @@ export const scoreWord = (word) => {
     return 0;
   }
 
-  // if (bonus.includes(word.length)) {
-  //   score += 8;
-  // }
-
   for (let letter of word){
    letter = letter.toUpperCase();
     if (letter == ' '){
