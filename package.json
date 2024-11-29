@@ -4,7 +4,7 @@
   "description": "JavaScript version of the Adagrams project",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "npx eslint",
     "coverage": "open coverage/lcov-report/index.html",
     "demo-game": "babel-node src/demo.js"
@@ -30,6 +30,7 @@
     "babel-core": "^6.26.3",
     "babel-jest": "^29.7.0",
     "babel-plugin-module-resolver": "^5.0.2",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^28.8.3",
     "globals": "^15.11.0",
     "jest": "^29.7.0",
