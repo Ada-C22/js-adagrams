@@ -44,8 +44,6 @@ export let letterArr = () => {
   return allLetters;
 };
 
-
-
 export const drawLetters = () => {
   // Implement this method for wave 1
   let currentLetterBank = letterArr();
@@ -54,7 +52,6 @@ export const drawLetters = () => {
   // SHUFFLE THE LIST OF ALL LETTERS - AKA shuffle the current letter bank
   // Fisher-Yates Shuffle Algorithm
   // Reference: https://www.tutorialspoint.com/what-is-fisher-yates-shuffle-in-javascript
-  
   for (let index = currentLetterBank.length-1; index > 0; index--){
     const randomIndex = Math.floor(Math.random() * (index+1));
     
@@ -177,3 +174,5 @@ export const highestScoreFrom = (words) => {
   return {word: currentWinner, score: currentHiScore};
 
 };
+
+
