@@ -141,6 +141,7 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
+  const tieBreakingLength = 10;
   let maxWord = words[0];
   let maxScore = scoreWord(maxWord);
 
@@ -151,8 +152,8 @@ export const highestScoreFrom = (words) => {
     if (score > maxScore) {
       maxScore = score;
       maxWord = word;
-    } else if (score === maxScore && maxWord.length !== 10) {
-      if (word.length === 10 || word.length < maxWord.length) {
+    } else if (score === maxScore && maxWord.length !== tieBreakingLength) {
+      if (word.length === tieBreakingLength || word.length < maxWord.length) {
         maxWord = word;
       }
     }
