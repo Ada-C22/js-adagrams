@@ -28,13 +28,12 @@ export const drawLetters = () => {
     Z: 1,
   };
 
-  // Create a string containing all the letters based on their counts
   let letters = "";
   for (const [letter, num] of Object.entries(letterPool)) {
     letters += letter.repeat(num);
   }
 
-  const result = [];
+  const randomlyHand = [];
   const lettersCountDict = {
     A: 0,
     B: 0,
@@ -64,34 +63,31 @@ export const drawLetters = () => {
     Z: 0,
   };
 
-  while (result.length < 10) {
+  while (randomlyHand.length < 10) {
     const i = Math.floor(Math.random() * letters.length);
     const selectedLetter = letters[i];
 
     if (lettersCountDict[selectedLetter] < letterPool[selectedLetter]) {
       lettersCountDict[selectedLetter]++;
-      result.push(selectedLetter);
+      randomlyHand.push(selectedLetter);
     }
   }
 
-  return result;
+  return randomlyHand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   let lettersInHandCopy = [];
   let wordLower = input.toLowerCase();
 
-  // Create a lowercase copy of lettersInHand
   for (let letter of lettersInHand) {
     lettersInHandCopy.push(letter.toLowerCase());
   }
 
-  // Check if all letters in the word are in the lettersInHandCopy
   for (let letter of wordLower) {
     if (!lettersInHandCopy.includes(letter)) {
       return false;
     } else {
-      // Remove the letter from the copy to account for usage
       lettersInHandCopy.splice(lettersInHandCopy.indexOf(letter), 1);
     }
   }
@@ -127,15 +123,18 @@ export const scoreWord = (word) => {
     Q: 10,
     Z: 10,
   };
+  const bonusLengthMin = 7;
+  const bonusLengthMax = 10;
+  const bonusPoints = 8;
 
   let totalScore = 0;
 
   for (const letter of word.toUpperCase()) {
-    totalScore += scoreDict[letter] || 0;
+    totalScore += scoreDict[letter];
   }
 
-  if (word.length >= 7 && word.length <= 10) {
-    totalScore += 8;
+  if (word.length >= bonusLengthMin && word.length <= bonusLengthMax) {
+    totalScore += bonusPoints;
   }
 
   return totalScore;
