@@ -78,23 +78,23 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  const letterCounts = {};
+  let lettersInHandCopy = [];
+  let wordLower = input.toLowerCase();
 
-  for (const letter of lettersInHand) {
-    if (letterCounts[letter]) {
-      letterCounts[letter]++;
-    } else {
-      letterCounts[letter] = 1;
-    }
+  // Create a lowercase copy of lettersInHand
+  for (let letter of lettersInHand) {
+    lettersInHandCopy.push(letter.toLowerCase());
   }
 
-  for (const char of input.toUpperCase()) {
-    if (!letterCounts[char] || letterCounts[char] === 0) {
+  // Check if all letters in the word are in the lettersInHandCopy
+  for (let letter of wordLower) {
+    if (!lettersInHandCopy.includes(letter)) {
       return false;
+    } else {
+      // Remove the letter from the copy to account for usage
+      lettersInHandCopy.splice(lettersInHandCopy.indexOf(letter), 1);
     }
-    letterCounts[char]--;
   }
-
   return true;
 };
 
