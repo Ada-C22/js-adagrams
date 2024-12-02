@@ -40,8 +40,6 @@ export const drawLetters = () => {
   return shuffledPool.slice(0, 10);
 };
 
-// export default drawLetters;
-
 export const usesAvailableLetters = (input, lettersInHand) => {
   const letterCounts = {};
 
@@ -62,8 +60,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   return true;
 };
-
-// export default usesAvailableLetters;
 
 export const scoreWord = (word) => {
   const scoreDict = {
@@ -108,8 +104,6 @@ export const scoreWord = (word) => {
   return totalScore;
 };
 
-// export default scoreWord;
-
 export const highestScoreFrom = (words) => {
   let maxWord = words[0];
   let maxScore = scoreWord(maxWord);
@@ -130,5 +124,3 @@ export const highestScoreFrom = (words) => {
 
   return { word: maxWord, score: maxScore };
 };
-
-// export default highestScoreFrom;
