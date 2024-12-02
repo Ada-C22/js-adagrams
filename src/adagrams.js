@@ -28,16 +28,53 @@ export const drawLetters = () => {
     Z: 1,
   };
 
-  const result = [];
+  // Create a string containing all the letters based on their counts
+  let letters = "";
+  for (const [letter, num] of Object.entries(letterPool)) {
+    letters += letter.repeat(num);
+  }
 
-  for (const [letter, count] of Object.entries(letterPool)) {
-    for (let i = 0; i < count; i++) {
-      result.push(letter);
+  const result = [];
+  const lettersCountDict = {
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0,
+    E: 0,
+    F: 0,
+    G: 0,
+    H: 0,
+    I: 0,
+    J: 0,
+    K: 0,
+    L: 0,
+    M: 0,
+    N: 0,
+    O: 0,
+    P: 0,
+    Q: 0,
+    R: 0,
+    S: 0,
+    T: 0,
+    U: 0,
+    V: 0,
+    W: 0,
+    X: 0,
+    Y: 0,
+    Z: 0,
+  };
+
+  while (result.length < 10) {
+    const i = Math.floor(Math.random() * letters.length);
+    const selectedLetter = letters[i];
+
+    if (lettersCountDict[selectedLetter] < letterPool[selectedLetter]) {
+      lettersCountDict[selectedLetter]++;
+      result.push(selectedLetter);
     }
   }
 
-  const shuffledPool = result.sort(() => Math.random() - 0.5);
-  return shuffledPool.slice(0, 10);
+  return result;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
