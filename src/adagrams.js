@@ -133,7 +133,7 @@ export const highestScoreFrom = (words) => {
   for (const word of words) {
     wordScores[word] = scoreWord(word);
   }
-  for (let [word, score] of Object.entries(wordScores)) {
+  for (const [word, score] of Object.entries(wordScores)) {
 
     if (score > maxScore) {
       maxWord = word;
