@@ -118,8 +118,9 @@ export const scoreWord = (word) => {
     totalScore += LETTERSCORES[word[i]];
   }
   //Adding 8 bonus points for letters with length 7 to 10
+  const BONUS_POINTS = 8;
   if (word.length >= 7 && word.length <= 10) {
-    totalScore += 8;
+    totalScore += BONUS_POINTS;
   }
 
   return totalScore;
