@@ -36,7 +36,7 @@ export const drawLetters = () => {
   let letterPoolArr = Object.entries(LETTERPOOL);
   let count = 0,
     letterIdx;
-  const handSize = 10;
+  const HAND_SIZE = 10;
 
   while (drawnLetters.length < handSize) {
     if (totalSize === 0) {
