@@ -34,8 +34,8 @@ export const drawLetters = () => {
   //Evaluating total size of probable letters can be drawn
   let totalSize = Object.values(LETTERPOOL).reduce((acc, val) => acc + val, 0);
   let letterPoolArr = Object.entries(LETTERPOOL);
-  let count = 0,
-    letterIdx;
+  let count = 0;
+  let letterIdx;
   const HAND_SIZE = 10;
 
   while (drawnLetters.length < handSize) {
