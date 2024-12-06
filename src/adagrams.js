@@ -69,8 +69,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     letterObj[letter] ? letterObj[letter]++ : (letterObj[letter] = 1);
   }
  //Utilizing object to track the letters drawn
-  for (let letter of input) {
-    letter = letter.toUpperCase();
+  for (let letter of input.toUpperCase()) {
     if (letterObj[letter] === undefined || letterObj[letter] === 0)
       return false;
     else {
