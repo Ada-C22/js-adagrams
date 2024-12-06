@@ -1,5 +1,5 @@
 /*constructing a leeterpool object with letter as key and no. of times it can be drawn as value*/
-const LETTERPOOL = {
+const LETTER_POOL = {
   A: 9,
   B: 2,
   C: 2,
