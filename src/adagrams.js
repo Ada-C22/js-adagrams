@@ -64,11 +64,8 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  for (let letter of lettersInHand) {
-    letter.toUpperCase();
-  }
   const letterObj = {};
-  for (let letter of lettersInHand) {
+  for (let letter of lettersInHand.toUpperCase()) {
     letterObj[letter] ? letterObj[letter]++ : (letterObj[letter] = 1);
   }
  //Utilizing object to track the letters drawn
