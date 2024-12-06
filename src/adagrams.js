@@ -82,7 +82,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 export const scoreWord = (word) => {
   // Implement this method for wave 3
 
-  const LETTERSCORES = {
+  const LETTER_SCORES = {
     A: 1,
     E: 1,
     I: 1,
